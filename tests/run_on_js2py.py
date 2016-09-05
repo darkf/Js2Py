@@ -155,37 +155,20 @@ class TestCase:
             label = "PASSED"
             reason = ''
             full_error = ''
+
         self.passed, self.label, self.reason, self.full_error = passed, label, reason, full_error
-        return passed, label, reason, full_error
 
-    def print_result(self):
-        print(self.clear_name, self.es5id, self.label, self.reason,
-              '\nFile "%s", line 1' % self.full_path if self.label == 'CRASHED' else '')
-
-def list_path(path, folders=False):
-    res = []
-    for f in os.listdir(path):
-        full = os.path.join(path, f)
-        is_file = os.path.isfile(full)
-        if (folders and not is_file) or (not folders and is_file):
-            res.append(full)
-    if folders:
-        return sorted(res)
-    else:
-        try:
-            return sorted(res, key=LooseVersion)
-        except:
-            print('Fuck python 3!')
-            return sorted(res)  # python 3
+def all_tests(path):
+    for dirpath, _, filenames in os.walk(path):
+        yield from (os.path.join(dirpath, filename) for filename in filenames if filename.endswith(".js"))
 
 def test_all(path):
-    files = list_path(path)
-    folders = list_path(path, folders=True)
-    for f in files:
-        if not f.endswith('.js'):
-            continue
+    files = list(all_tests(path))
+    num_tests = len(files)
+
+    for i,filename in enumerate(files):
         try:
-            test = TestCase(f)
+            test = TestCase(filename)
             if test.strict_only:
                 continue
 
@@ -200,12 +183,13 @@ def test_all(path):
                 test.full_error = 'TERMINATED'
                 test.label = 'TIMEOUT'
                 test.reason = '?'
-            test.print_result()
+
+            print("[%d/%d]" % (i, num_tests), test.clear_name, test.es5id, test.label, test.reason,
+                  '\nFile "%s", line 1' % test.full_path if test.label == 'CRASHED' else '')
         except:
             print(traceback.format_exc())
-            print(f)
+            print(filename)
             input()
-    for folder in folders:
-        test_all(folder)
 
-test_all(TEST_PATH)
+if __name__ == "__main__":
+    test_all(TEST_PATH)
