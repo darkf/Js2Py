@@ -1,11 +1,9 @@
-
 class ObjectPrototype:
     def toString():
-        return '[object %s]'%this.Class
+        return '[object %s]' % this.Class
 
     def valueOf():
         return this.to_object()
-
 
     def toLocaleString():
         return this.callprop('toString')
@@ -14,7 +12,7 @@ class ObjectPrototype:
         return this.get_own_property(prop.to_string().value) is not None
 
     def isPrototypeOf(obj):
-        #a bit stupid specification but well
+        # a bit stupid specification but well
         # for example Object.prototype.isPrototypeOf.call((5).__proto__, 5) gives false
         if not obj.is_object():
             return False
@@ -28,9 +26,3 @@ class ObjectPrototype:
     def propertyIsEnumerable(prop):
         cand = this.own.get(prop.to_string().value)
         return cand is not None and cand.get('enumerable')
-
-
-
-
-
-

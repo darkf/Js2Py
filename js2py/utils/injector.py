@@ -17,20 +17,20 @@ def fix_js_args(func):
     '''Use this function when unsure whether func takes this and arguments as its last 2 args.
        It will append 2 args if it does not.'''
     fcode = six.get_function_code(func)
-    fargs = fcode.co_varnames[fcode.co_argcount-2:fcode.co_argcount]
-    if fargs==('this', 'arguments') or fargs==('arguments', 'var'):
+    fargs = fcode.co_varnames[fcode.co_argcount - 2:fcode.co_argcount]
+    if fargs == ('this', 'arguments') or fargs == ('arguments', 'var'):
         return func
-    code = append_arguments(six.get_function_code(func), ('this','arguments'))
+    code = append_arguments(six.get_function_code(func), ('this', 'arguments'))
 
-    return types.FunctionType(code, six.get_function_globals(func), func.__name__, closure=six.get_function_closure(func))
+    return types.FunctionType(code, six.get_function_globals(func), func.__name__,
+                              closure=six.get_function_closure(func))
 
-    
 def append_arguments(code_obj, new_locals):
-    co_varnames = code_obj.co_varnames   # Old locals
-    co_names = code_obj.co_names   # Old globals
-    co_names+=tuple(e for e in new_locals if e not in co_names)
-    co_argcount = code_obj.co_argcount     # Argument count
-    co_code = code_obj.co_code         # The actual bytecode as a string
+    co_varnames = code_obj.co_varnames  # Old locals
+    co_names = code_obj.co_names  # Old globals
+    co_names += tuple(e for e in new_locals if e not in co_names)
+    co_argcount = code_obj.co_argcount  # Argument count
+    co_code = code_obj.co_code  # The actual bytecode as a string
 
     # Make one pass over the bytecode to identify names that should be
     # left in code_obj.co_names.
@@ -78,7 +78,7 @@ def append_arguments(code_obj, new_locals):
             if inst[1] in names_to_varnames:
                 inst[0] = LOAD_FAST
                 inst[1] = names_to_varnames[inst[1]]
-            elif inst[1] in name_translations:    
+            elif inst[1] in name_translations:
                 inst[1] = name_translations[inst[1]]
             else:
                 raise ValueError("a name was lost in translation")
@@ -91,23 +91,23 @@ def append_arguments(code_obj, new_locals):
     if six.PY2:
         code = ''.join(modified)
         args = (co_argcount + new_locals_len,
-                              code_obj.co_nlocals + new_locals_len,
-                              code_obj.co_stacksize,
-                              code_obj.co_flags,
-                              code,
-                              code_obj.co_consts,
-                              names,
-                              varnames,
-                              code_obj.co_filename,
-                              code_obj.co_name,
-                              code_obj.co_firstlineno,
-                              code_obj.co_lnotab,
-                              code_obj.co_freevars,
-                              code_obj.co_cellvars)
+                code_obj.co_nlocals + new_locals_len,
+                code_obj.co_stacksize,
+                code_obj.co_flags,
+                code,
+                code_obj.co_consts,
+                names,
+                varnames,
+                code_obj.co_filename,
+                code_obj.co_name,
+                code_obj.co_firstlineno,
+                code_obj.co_lnotab,
+                code_obj.co_freevars,
+                code_obj.co_cellvars)
     else:
-        #print(modified)
+        # print(modified)
         code = bytes(modified)
-        #print(code)
+        # print(code)
         args = (co_argcount + new_locals_len,
                 0,
                 code_obj.co_nlocals + new_locals_len,
@@ -127,7 +127,6 @@ def append_arguments(code_obj, new_locals):
     # Done modifying codestring - make the code object
     return types.CodeType(*args)
 
-
 def instructions(code):
     if six.PY2:
         code = map(ord, code)
@@ -135,11 +134,11 @@ def instructions(code):
     extended_arg = 0
     while i < L:
         op = code[i]
-        i+= 1
+        i += 1
         if op < opcode.HAVE_ARGUMENT:
             yield [op, None]
             continue
-        oparg = code[i] + (code[i+1] << 8) + extended_arg
+        oparg = code[i] + (code[i + 1] << 8) + extended_arg
         extended_arg = 0
         i += 2
         if op == opcode.EXTENDED_ARG:
@@ -163,22 +162,19 @@ def write_instruction(inst):
     else:
         raise ValueError("Invalid oparg: {0} is too large".format(oparg))
 
-
-
-
-
-
-
-if __name__=='__main__':
+if __name__ == '__main__':
     x = 'Wrong'
     dick = 3000
+
     def func(a):
-        print(x,y,z, a)
+        print(x, y, z, a)
         print(dick)
         d = (x,)
-        for e in  (e for e in x):
+        for e in (e for e in x):
             print(e)
         return x, y, z
-    func2 =types.FunctionType(append_arguments(six.get_function_code(func), ('x', 'y', 'z')), six.get_function_globals(func), func.__name__, closure=six.get_function_closure(func))
-    args = (2,2,3,4),3,4
+
+    func2 = types.FunctionType(append_arguments(six.get_function_code(func), ('x', 'y', 'z')),
+                               six.get_function_globals(func), func.__name__, closure=six.get_function_closure(func))
+    args = (2, 2, 3, 4), 3, 4
     assert func2(1, *args) == args

@@ -7,11 +7,10 @@ def _get_conts(idl):
             return 1
         except:
             pass
+
     return '\n'.join(filter(is_valid, (' '.join(e.strip(' ;').split()[-3:]) for e in idl.splitlines())))
 
-
-default_attrs = {'writable':True, 'enumerable':True, 'configurable':True}
-
+default_attrs = {'writable': True, 'enumerable': True, 'configurable': True}
 
 def compose_prototype(Class, attrs=default_attrs):
     prototype = Class()
@@ -19,11 +18,10 @@ def compose_prototype(Class, attrs=default_attrs):
         e = getattr(Class, i)
         if hasattr(e, '__func__'):
             temp = PyJsFunction(e.__func__, FunctionPrototype)
-            attrs = {k:v for k,v in attrs.iteritems()}
+            attrs = {k: v for k, v in attrs.iteritems()}
             attrs['value'] = temp
             prototype.define_own_property(i, attrs)
     return prototype
-
 
 # Error codes
 
@@ -44,4 +42,3 @@ NAMESPACE_ERR = 14
 INVALID_ACCESS_ERR = 15
 VALIDATION_ERR = 16
 TYPE_MISMATCH_ERR = 17
-

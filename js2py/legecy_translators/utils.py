@@ -18,7 +18,6 @@ def is_valid_lval(t):
         return True
     return False
 
-
 def is_plval(t):
     return t.startswith('PyJsLval')
 
@@ -26,7 +25,7 @@ def is_marker(t):
     return t.startswith('PyJsMarker') or t.startswith('PyJsConstant')
 
 def is_internal(t):
-    return is_plval(t) or is_marker(t) or t=='var' # var is a scope var
+    return is_plval(t) or is_marker(t) or t == 'var'  # var is a scope var
 
 def is_property_accessor(t):
     return '[' in t or '.' in t
@@ -34,10 +33,7 @@ def is_property_accessor(t):
 def is_reserved(t):
     return t in RESERVED_NAMES
 
-
-
-
-#http://stackoverflow.com/questions/14245893/efficiently-list-all-characters-in-a-given-unicode-category
+# http://stackoverflow.com/questions/14245893/efficiently-list-all-characters-in-a-given-unicode-category
 BOM = u'\uFEFF'
 ZWJ = u'\u200D'
 ZWNJ = u'\u200C'
@@ -55,14 +51,15 @@ U_CATEGORIES = defaultdict(list)  # Thank you Martijn Pieters!
 for c in map(unichr, range(sys.maxunicode + 1)):
     U_CATEGORIES[unicodedata.category(c)].append(c)
 
-UNICODE_LETTER = set(U_CATEGORIES['Lu']+U_CATEGORIES['Ll']+
-                     U_CATEGORIES['Lt']+U_CATEGORIES['Lm']+
-                     U_CATEGORIES['Lo']+U_CATEGORIES['Nl'])
-UNICODE_COMBINING_MARK = set(U_CATEGORIES['Mn']+U_CATEGORIES['Mc'])
+UNICODE_LETTER = set(U_CATEGORIES['Lu'] + U_CATEGORIES['Ll'] +
+                     U_CATEGORIES['Lt'] + U_CATEGORIES['Lm'] +
+                     U_CATEGORIES['Lo'] + U_CATEGORIES['Nl'])
+UNICODE_COMBINING_MARK = set(U_CATEGORIES['Mn'] + U_CATEGORIES['Mc'])
 UNICODE_DIGIT = set(U_CATEGORIES['Nd'])
 UNICODE_CONNECTOR_PUNCTUATION = set(U_CATEGORIES['Pc'])
-IDENTIFIER_START = UNICODE_LETTER.union({'$','_'}) # and some fucking unicode escape sequence
-IDENTIFIER_PART = IDENTIFIER_START.union(UNICODE_COMBINING_MARK).union(UNICODE_DIGIT).union(UNICODE_CONNECTOR_PUNCTUATION).union({ZWJ, ZWNJ})
+IDENTIFIER_START = UNICODE_LETTER.union({'$', '_'})  # and some fucking unicode escape sequence
+IDENTIFIER_PART = IDENTIFIER_START.union(UNICODE_COMBINING_MARK).union(UNICODE_DIGIT).union(
+    UNICODE_CONNECTOR_PUNCTUATION).union({ZWJ, ZWNJ})
 USP = U_CATEGORIES['Zs']
 KEYWORD = {'break', 'do', 'instanceof', 'typeof', 'case', 'else', 'new',
            'var', 'catch', 'finally', 'return', 'void', 'continue', 'for',
@@ -75,6 +72,6 @@ RESERVED_NAMES = KEYWORD.union(FUTURE_RESERVED_WORD).union({'null', 'false', 'tr
 WHITE = {TAB, VT, FF, SP, NBSP, BOM}.union(USP)
 LINE_TERMINATOR = {LF, CR, LS, PS}
 LLINE_TERMINATOR = list(LINE_TERMINATOR)
-x = ''.join(WHITE)+''.join(LINE_TERMINATOR)
+x = ''.join(WHITE) + ''.join(LINE_TERMINATOR)
 SPACE = WHITE.union(LINE_TERMINATOR)
-LINE_TERMINATOR_SEQUENCE = LINE_TERMINATOR.union({CR+LF})
+LINE_TERMINATOR_SEQUENCE = LINE_TERMINATOR.union({CR + LF})

@@ -33,13 +33,20 @@
 # -*- coding: latin-1 -*-
 from __future__ import print_function
 import re
+
 def typeof(t):
-    if t is None: return 'undefined'
-    elif isinstance(t, bool): return 'boolean'
-    elif isinstance(t, str): return 'string'
-    elif isinstance(t, int) or isinstance(t, float): return 'number'
-    elif hasattr(t, '__call__'): return 'function'
-    else: return 'object'
+    if t is None:
+        return 'undefined'
+    elif isinstance(t, bool):
+        return 'boolean'
+    elif isinstance(t, str):
+        return 'string'
+    elif isinstance(t, int) or isinstance(t, float):
+        return 'number'
+    elif hasattr(t, '__call__'):
+        return 'function'
+    else:
+        return 'object'
 
 def list_indexOf(l, v):
     try:
@@ -53,24 +60,30 @@ parseInt = int
 class jsdict(object):
     def __init__(self, d):
         self.__dict__.update(d)
+
     def __getitem__(self, name):
         if name in self.__dict__:
-          return self.__dict__[name]
+            return self.__dict__[name]
         else:
-          return None
+            return None
+
     def __setitem__(self, name, value):
         self.__dict__[name] = value
         return value
+
     def __getattr__(self, name):
         try:
             return getattr(self, name)
         except:
             return None
+
     def __setattr__(self, name, value):
         self[name] = value
         return value
+
     def __contains__(self, name):
         return name in self.__dict__
+
     def __repr__(self):
         return str(self.__dict__)
 
@@ -80,298 +93,299 @@ class RegExp(object):
         pyflags = 0 | re.M if 'm' in flags else 0 | re.I if 'i' in flags else 0
         self.source = pattern
         self.pattern = re.compile(pattern, pyflags)
+
     def test(self, s):
         return self.pattern.search(s) is not None
 
-console = jsdict({"log":print})
+console = jsdict({"log": print})
 
 def __temp__42(object=None, body=None):
     return jsdict({
-"type": Syntax.WithStatement,
-"object": object,
-"body": body,
-})
+        "type": Syntax.WithStatement,
+        "object": object,
+        "body": body,
+    })
 
 def __temp__41(test=None, body=None):
     return jsdict({
-"type": Syntax.WhileStatement,
-"test": test,
-"body": body,
-})
+        "type": Syntax.WhileStatement,
+        "test": test,
+        "body": body,
+    })
 
 def __temp__40(id=None, init=None):
     return jsdict({
-"type": Syntax.VariableDeclarator,
-"id": id,
-"init": init,
-})
+        "type": Syntax.VariableDeclarator,
+        "id": id,
+        "init": init,
+    })
 
 def __temp__39(declarations=None, kind=None):
     return jsdict({
-"type": Syntax.VariableDeclaration,
-"declarations": declarations,
-"kind": kind,
-})
+        "type": Syntax.VariableDeclaration,
+        "declarations": declarations,
+        "kind": kind,
+    })
 
 def __temp__38(operator=None, argument=None):
     if (operator == "++") or (operator == "--"):
         return jsdict({
-"type": Syntax.UpdateExpression,
-"operator": operator,
-"argument": argument,
-"prefix": True,
-})
+            "type": Syntax.UpdateExpression,
+            "operator": operator,
+            "argument": argument,
+            "prefix": True,
+        })
     return jsdict({
-"type": Syntax.UnaryExpression,
-"operator": operator,
-"argument": argument,
-"prefix": True,
-})
+        "type": Syntax.UnaryExpression,
+        "operator": operator,
+        "argument": argument,
+        "prefix": True,
+    })
 
 def __temp__37(block=None, guardedHandlers=None, handlers=None, finalizer=None):
     return jsdict({
-"type": Syntax.TryStatement,
-"block": block,
-"guardedHandlers": guardedHandlers,
-"handlers": handlers,
-"finalizer": finalizer,
-})
+        "type": Syntax.TryStatement,
+        "block": block,
+        "guardedHandlers": guardedHandlers,
+        "handlers": handlers,
+        "finalizer": finalizer,
+    })
 
 def __temp__36(argument=None):
     return jsdict({
-"type": Syntax.ThrowStatement,
-"argument": argument,
-})
+        "type": Syntax.ThrowStatement,
+        "argument": argument,
+    })
 
 def __temp__35():
     return jsdict({
-"type": Syntax.ThisExpression,
-})
+        "type": Syntax.ThisExpression,
+    })
 
 def __temp__34(discriminant=None, cases=None):
     return jsdict({
-"type": Syntax.SwitchStatement,
-"discriminant": discriminant,
-"cases": cases,
-})
+        "type": Syntax.SwitchStatement,
+        "discriminant": discriminant,
+        "cases": cases,
+    })
 
 def __temp__33(test=None, consequent=None):
     return jsdict({
-"type": Syntax.SwitchCase,
-"test": test,
-"consequent": consequent,
-})
+        "type": Syntax.SwitchCase,
+        "test": test,
+        "consequent": consequent,
+    })
 
 def __temp__32(expressions=None):
     return jsdict({
-"type": Syntax.SequenceExpression,
-"expressions": expressions,
-})
+        "type": Syntax.SequenceExpression,
+        "expressions": expressions,
+    })
 
 def __temp__31(argument=None):
     return jsdict({
-"type": Syntax.ReturnStatement,
-"argument": argument,
-})
+        "type": Syntax.ReturnStatement,
+        "argument": argument,
+    })
 
 def __temp__30(kind=None, key=None, value=None):
     return jsdict({
-"type": Syntax.Property,
-"key": key,
-"value": value,
-"kind": kind,
-})
+        "type": Syntax.Property,
+        "key": key,
+        "value": value,
+        "kind": kind,
+    })
 
 def __temp__29(body=None):
     return jsdict({
-"type": Syntax.Program,
-"body": body,
-})
+        "type": Syntax.Program,
+        "body": body,
+    })
 
 def __temp__28(operator=None, argument=None):
     return jsdict({
-"type": Syntax.UpdateExpression,
-"operator": operator,
-"argument": argument,
-"prefix": False,
-})
+        "type": Syntax.UpdateExpression,
+        "operator": operator,
+        "argument": argument,
+        "prefix": False,
+    })
 
 def __temp__27(properties=None):
     return jsdict({
-"type": Syntax.ObjectExpression,
-"properties": properties,
-})
+        "type": Syntax.ObjectExpression,
+        "properties": properties,
+    })
 
 def __temp__26(callee=None, args=None):
     return jsdict({
-"type": Syntax.NewExpression,
-"callee": callee,
-"arguments": args,
-})
+        "type": Syntax.NewExpression,
+        "callee": callee,
+        "arguments": args,
+    })
 
 def __temp__25(accessor=None, object=None, property=None):
     return jsdict({
-"type": Syntax.MemberExpression,
-"computed": accessor == "[",
-"object": object,
-"property": property,
-})
+        "type": Syntax.MemberExpression,
+        "computed": accessor == "[",
+        "object": object,
+        "property": property,
+    })
 
 def __temp__24(token=None):
     return jsdict({
-"type": Syntax.Literal,
-"value": token.value,
-"raw": source[token.range[0]:token.range[1]],
-})
+        "type": Syntax.Literal,
+        "value": token.value,
+        "raw": source[token.range[0]:token.range[1]],
+    })
 
 def __temp__23(label=None, body=None):
     return jsdict({
-"type": Syntax.LabeledStatement,
-"label": label,
-"body": body,
-})
+        "type": Syntax.LabeledStatement,
+        "label": label,
+        "body": body,
+    })
 
 def __temp__22(test=None, consequent=None, alternate=None):
     return jsdict({
-"type": Syntax.IfStatement,
-"test": test,
-"consequent": consequent,
-"alternate": alternate,
-})
+        "type": Syntax.IfStatement,
+        "test": test,
+        "consequent": consequent,
+        "alternate": alternate,
+    })
 
 def __temp__21(name=None):
     return jsdict({
-"type": Syntax.Identifier,
-"name": name,
-})
+        "type": Syntax.Identifier,
+        "name": name,
+    })
 
 def __temp__20(id=None, params=None, defaults=None, body=None):
     return jsdict({
-"type": Syntax.FunctionExpression,
-"id": id,
-"params": params,
-"defaults": defaults,
-"body": body,
-"rest": None,
-"generator": False,
-"expression": False,
-})
+        "type": Syntax.FunctionExpression,
+        "id": id,
+        "params": params,
+        "defaults": defaults,
+        "body": body,
+        "rest": None,
+        "generator": False,
+        "expression": False,
+    })
 
 def __temp__19(id=None, params=None, defaults=None, body=None):
     return jsdict({
-"type": Syntax.FunctionDeclaration,
-"id": id,
-"params": params,
-"defaults": defaults,
-"body": body,
-"rest": None,
-"generator": False,
-"expression": False,
-})
+        "type": Syntax.FunctionDeclaration,
+        "id": id,
+        "params": params,
+        "defaults": defaults,
+        "body": body,
+        "rest": None,
+        "generator": False,
+        "expression": False,
+    })
 
 def __temp__18(left=None, right=None, body=None):
     return jsdict({
-"type": Syntax.ForInStatement,
-"left": left,
-"right": right,
-"body": body,
-"each": False,
-})
+        "type": Syntax.ForInStatement,
+        "left": left,
+        "right": right,
+        "body": body,
+        "each": False,
+    })
 
 def __temp__17(init=None, test=None, update=None, body=None):
     return jsdict({
-"type": Syntax.ForStatement,
-"init": init,
-"test": test,
-"update": update,
-"body": body,
-})
+        "type": Syntax.ForStatement,
+        "init": init,
+        "test": test,
+        "update": update,
+        "body": body,
+    })
 
 def __temp__16(expression=None):
     return jsdict({
-"type": Syntax.ExpressionStatement,
-"expression": expression,
-})
+        "type": Syntax.ExpressionStatement,
+        "expression": expression,
+    })
 
 def __temp__15():
     return jsdict({
-"type": Syntax.EmptyStatement,
-})
+        "type": Syntax.EmptyStatement,
+    })
 
 def __temp__14(body=None, test=None):
     return jsdict({
-"type": Syntax.DoWhileStatement,
-"body": body,
-"test": test,
-})
+        "type": Syntax.DoWhileStatement,
+        "body": body,
+        "test": test,
+    })
 
 def __temp__13():
     return jsdict({
-"type": Syntax.DebuggerStatement,
-})
+        "type": Syntax.DebuggerStatement,
+    })
 
 def __temp__12(label=None):
     return jsdict({
-"type": Syntax.ContinueStatement,
-"label": label,
-})
+        "type": Syntax.ContinueStatement,
+        "label": label,
+    })
 
 def __temp__11(test=None, consequent=None, alternate=None):
     return jsdict({
-"type": Syntax.ConditionalExpression,
-"test": test,
-"consequent": consequent,
-"alternate": alternate,
-})
+        "type": Syntax.ConditionalExpression,
+        "test": test,
+        "consequent": consequent,
+        "alternate": alternate,
+    })
 
 def __temp__10(param=None, body=None):
     return jsdict({
-"type": Syntax.CatchClause,
-"param": param,
-"body": body,
-})
+        "type": Syntax.CatchClause,
+        "param": param,
+        "body": body,
+    })
 
 def __temp__9(callee=None, args=None):
     return jsdict({
-"type": Syntax.CallExpression,
-"callee": callee,
-"arguments": args,
-})
+        "type": Syntax.CallExpression,
+        "callee": callee,
+        "arguments": args,
+    })
 
 def __temp__8(label=None):
     return jsdict({
-"type": Syntax.BreakStatement,
-"label": label,
-})
+        "type": Syntax.BreakStatement,
+        "label": label,
+    })
 
 def __temp__7(body=None):
     return jsdict({
-"type": Syntax.BlockStatement,
-"body": body,
-})
+        "type": Syntax.BlockStatement,
+        "body": body,
+    })
 
 def __temp__6(operator=None, left=None, right=None):
     type = (Syntax.LogicalExpression if (operator == "||") or (operator == "&&") else Syntax.BinaryExpression)
     return jsdict({
-"type": type,
-"operator": operator,
-"left": left,
-"right": right,
-})
+        "type": type,
+        "operator": operator,
+        "left": left,
+        "right": right,
+    })
 
 def __temp__5(operator=None, left=None, right=None):
     return jsdict({
-"type": Syntax.AssignmentExpression,
-"operator": operator,
-"left": left,
-"right": right,
-})
+        "type": Syntax.AssignmentExpression,
+        "operator": operator,
+        "left": left,
+        "right": right,
+    })
 
 def __temp__4(elements=None):
     return jsdict({
-"type": Syntax.ArrayExpression,
-"elements": elements,
-})
+        "type": Syntax.ArrayExpression,
+        "elements": elements,
+    })
 
 def __temp__3(node=None):
     if extra.source:
@@ -394,15 +408,15 @@ def __temp__1(node=None):
         node.range = [state.markerStack.pop(), index]
     if extra.loc:
         node.loc = jsdict({
-"start": jsdict({
-"line": state.markerStack.pop(),
-"column": state.markerStack.pop(),
-}),
-"end": jsdict({
-"line": lineNumber,
-"column": index - lineStart,
-}),
-})
+            "start": jsdict({
+                "line": state.markerStack.pop(),
+                "column": state.markerStack.pop(),
+            }),
+            "end": jsdict({
+                "line": lineNumber,
+                "column": index - lineStart,
+            }),
+        })
         SyntaxTreeDelegate.postProcess(node)
     return node
 
@@ -432,15 +446,15 @@ lookahead = None
 state = None
 extra = None
 Token = jsdict({
-"BooleanLiteral": 1,
-"EOF": 2,
-"Identifier": 3,
-"Keyword": 4,
-"NullLiteral": 5,
-"NumericLiteral": 6,
-"Punctuator": 7,
-"StringLiteral": 8,
-"RegularExpression": 9,
+    "BooleanLiteral": 1,
+    "EOF": 2,
+    "Identifier": 3,
+    "Keyword": 4,
+    "NullLiteral": 5,
+    "NumericLiteral": 6,
+    "Punctuator": 7,
+    "StringLiteral": 8,
+    "RegularExpression": 9,
 })
 TokenName = jsdict({
 })
@@ -453,93 +467,99 @@ TokenName[Token.NumericLiteral] = "Numeric"
 TokenName[Token.Punctuator] = "Punctuator"
 TokenName[Token.StringLiteral] = "String"
 TokenName[Token.RegularExpression] = "RegularExpression"
-FnExprTokens = ["(", "{", "[", "in", "typeof", "instanceof", "new", "return", "case", "delete", "throw", "void", "=", "+=", "-=", "*=", "/=", "%=", "<<=", ">>=", ">>>=", "&=", "|=", "^=", ",", "+", "-", "*", "/", "%", "++", "--", "<<", ">>", ">>>", "&", "|", "^", "!", "~", "&&", "||", "?", ":", "===", "==", ">=", "<=", "<", ">", "!=", "!=="]
+FnExprTokens = ["(", "{", "[", "in", "typeof", "instanceof", "new", "return", "case", "delete", "throw", "void", "=",
+                "+=", "-=", "*=", "/=", "%=", "<<=", ">>=", ">>>=", "&=", "|=", "^=", ",", "+", "-", "*", "/", "%",
+                "++", "--", "<<", ">>", ">>>", "&", "|", "^", "!", "~", "&&", "||", "?", ":", "===", "==", ">=", "<=",
+                "<", ">", "!=", "!=="]
 Syntax = jsdict({
-"AssignmentExpression": "AssignmentExpression",
-"ArrayExpression": "ArrayExpression",
-"BlockStatement": "BlockStatement",
-"BinaryExpression": "BinaryExpression",
-"BreakStatement": "BreakStatement",
-"CallExpression": "CallExpression",
-"CatchClause": "CatchClause",
-"ConditionalExpression": "ConditionalExpression",
-"ContinueStatement": "ContinueStatement",
-"DoWhileStatement": "DoWhileStatement",
-"DebuggerStatement": "DebuggerStatement",
-"EmptyStatement": "EmptyStatement",
-"ExpressionStatement": "ExpressionStatement",
-"ForStatement": "ForStatement",
-"ForInStatement": "ForInStatement",
-"FunctionDeclaration": "FunctionDeclaration",
-"FunctionExpression": "FunctionExpression",
-"Identifier": "Identifier",
-"IfStatement": "IfStatement",
-"Literal": "Literal",
-"LabeledStatement": "LabeledStatement",
-"LogicalExpression": "LogicalExpression",
-"MemberExpression": "MemberExpression",
-"NewExpression": "NewExpression",
-"ObjectExpression": "ObjectExpression",
-"Program": "Program",
-"Property": "Property",
-"ReturnStatement": "ReturnStatement",
-"SequenceExpression": "SequenceExpression",
-"SwitchStatement": "SwitchStatement",
-"SwitchCase": "SwitchCase",
-"ThisExpression": "ThisExpression",
-"ThrowStatement": "ThrowStatement",
-"TryStatement": "TryStatement",
-"UnaryExpression": "UnaryExpression",
-"UpdateExpression": "UpdateExpression",
-"VariableDeclaration": "VariableDeclaration",
-"VariableDeclarator": "VariableDeclarator",
-"WhileStatement": "WhileStatement",
-"WithStatement": "WithStatement",
+    "AssignmentExpression": "AssignmentExpression",
+    "ArrayExpression": "ArrayExpression",
+    "BlockStatement": "BlockStatement",
+    "BinaryExpression": "BinaryExpression",
+    "BreakStatement": "BreakStatement",
+    "CallExpression": "CallExpression",
+    "CatchClause": "CatchClause",
+    "ConditionalExpression": "ConditionalExpression",
+    "ContinueStatement": "ContinueStatement",
+    "DoWhileStatement": "DoWhileStatement",
+    "DebuggerStatement": "DebuggerStatement",
+    "EmptyStatement": "EmptyStatement",
+    "ExpressionStatement": "ExpressionStatement",
+    "ForStatement": "ForStatement",
+    "ForInStatement": "ForInStatement",
+    "FunctionDeclaration": "FunctionDeclaration",
+    "FunctionExpression": "FunctionExpression",
+    "Identifier": "Identifier",
+    "IfStatement": "IfStatement",
+    "Literal": "Literal",
+    "LabeledStatement": "LabeledStatement",
+    "LogicalExpression": "LogicalExpression",
+    "MemberExpression": "MemberExpression",
+    "NewExpression": "NewExpression",
+    "ObjectExpression": "ObjectExpression",
+    "Program": "Program",
+    "Property": "Property",
+    "ReturnStatement": "ReturnStatement",
+    "SequenceExpression": "SequenceExpression",
+    "SwitchStatement": "SwitchStatement",
+    "SwitchCase": "SwitchCase",
+    "ThisExpression": "ThisExpression",
+    "ThrowStatement": "ThrowStatement",
+    "TryStatement": "TryStatement",
+    "UnaryExpression": "UnaryExpression",
+    "UpdateExpression": "UpdateExpression",
+    "VariableDeclaration": "VariableDeclaration",
+    "VariableDeclarator": "VariableDeclarator",
+    "WhileStatement": "WhileStatement",
+    "WithStatement": "WithStatement",
 })
 PropertyKind = jsdict({
-"Data": 1,
-"Get": 2,
-"Set": 4,
+    "Data": 1,
+    "Get": 2,
+    "Set": 4,
 })
 Messages = jsdict({
-"UnexpectedToken": "Unexpected token %0",
-"UnexpectedNumber": "Unexpected number",
-"UnexpectedString": "Unexpected string",
-"UnexpectedIdentifier": "Unexpected identifier",
-"UnexpectedReserved": "Unexpected reserved word",
-"UnexpectedEOS": "Unexpected end of input",
-"NewlineAfterThrow": "Illegal newline after throw",
-"InvalidRegExp": "Invalid regular expression",
-"UnterminatedRegExp": "Invalid regular expression: missing /",
-"InvalidLHSInAssignment": "Invalid left-hand side in assignment",
-"InvalidLHSInForIn": "Invalid left-hand side in for-in",
-"MultipleDefaultsInSwitch": "More than one default clause in switch statement",
-"NoCatchOrFinally": "Missing catch or finally after try",
-"UnknownLabel": "Undefined label '%0'",
-"Redeclaration": "%0 '%1' has already been declared",
-"IllegalContinue": "Illegal continue statement",
-"IllegalBreak": "Illegal break statement",
-"IllegalReturn": "Illegal return statement",
-"StrictModeWith": "Strict mode code may not include a with statement",
-"StrictCatchVariable": "Catch variable may not be eval or arguments in strict mode",
-"StrictVarName": "Variable name may not be eval or arguments in strict mode",
-"StrictParamName": "Parameter name eval or arguments is not allowed in strict mode",
-"StrictParamDupe": "Strict mode function may not have duplicate parameter names",
-"StrictFunctionName": "Function name may not be eval or arguments in strict mode",
-"StrictOctalLiteral": "Octal literals are not allowed in strict mode.",
-"StrictDelete": "Delete of an unqualified identifier in strict mode.",
-"StrictDuplicateProperty": "Duplicate data property in object literal not allowed in strict mode",
-"AccessorDataProperty": "Object literal may not have data and accessor property with the same name",
-"AccessorGetSet": "Object literal may not have multiple get/set accessors with the same name",
-"StrictLHSAssignment": "Assignment to eval or arguments is not allowed in strict mode",
-"StrictLHSPostfix": "Postfix increment/decrement may not have eval or arguments operand in strict mode",
-"StrictLHSPrefix": "Prefix increment/decrement may not have eval or arguments operand in strict mode",
-"StrictReservedWord": "Use of future reserved word in strict mode",
+    "UnexpectedToken": "Unexpected token %0",
+    "UnexpectedNumber": "Unexpected number",
+    "UnexpectedString": "Unexpected string",
+    "UnexpectedIdentifier": "Unexpected identifier",
+    "UnexpectedReserved": "Unexpected reserved word",
+    "UnexpectedEOS": "Unexpected end of input",
+    "NewlineAfterThrow": "Illegal newline after throw",
+    "InvalidRegExp": "Invalid regular expression",
+    "UnterminatedRegExp": "Invalid regular expression: missing /",
+    "InvalidLHSInAssignment": "Invalid left-hand side in assignment",
+    "InvalidLHSInForIn": "Invalid left-hand side in for-in",
+    "MultipleDefaultsInSwitch": "More than one default clause in switch statement",
+    "NoCatchOrFinally": "Missing catch or finally after try",
+    "UnknownLabel": "Undefined label '%0'",
+    "Redeclaration": "%0 '%1' has already been declared",
+    "IllegalContinue": "Illegal continue statement",
+    "IllegalBreak": "Illegal break statement",
+    "IllegalReturn": "Illegal return statement",
+    "StrictModeWith": "Strict mode code may not include a with statement",
+    "StrictCatchVariable": "Catch variable may not be eval or arguments in strict mode",
+    "StrictVarName": "Variable name may not be eval or arguments in strict mode",
+    "StrictParamName": "Parameter name eval or arguments is not allowed in strict mode",
+    "StrictParamDupe": "Strict mode function may not have duplicate parameter names",
+    "StrictFunctionName": "Function name may not be eval or arguments in strict mode",
+    "StrictOctalLiteral": "Octal literals are not allowed in strict mode.",
+    "StrictDelete": "Delete of an unqualified identifier in strict mode.",
+    "StrictDuplicateProperty": "Duplicate data property in object literal not allowed in strict mode",
+    "AccessorDataProperty": "Object literal may not have data and accessor property with the same name",
+    "AccessorGetSet": "Object literal may not have multiple get/set accessors with the same name",
+    "StrictLHSAssignment": "Assignment to eval or arguments is not allowed in strict mode",
+    "StrictLHSPostfix": "Postfix increment/decrement may not have eval or arguments operand in strict mode",
+    "StrictLHSPrefix": "Prefix increment/decrement may not have eval or arguments operand in strict mode",
+    "StrictReservedWord": "Use of future reserved word in strict mode",
 })
 Regex = jsdict({
-"NonAsciiIdentifierStart": RegExp(u"[\xaa\xb5\xba\xc0-\xd6\xd8-\xf6\xf8-\u02c1\u02c6-\u02d1\u02e0-\u02e4\u02ec\u02ee\u0370-\u0374\u0376\u0377\u037a-\u037d\u0386\u0388-\u038a\u038c\u038e-\u03a1\u03a3-\u03f5\u03f7-\u0481\u048a-\u0527\u0531-\u0556\u0559\u0561-\u0587\u05d0-\u05ea\u05f0-\u05f2\u0620-\u064a\u066e\u066f\u0671-\u06d3\u06d5\u06e5\u06e6\u06ee\u06ef\u06fa-\u06fc\u06ff\u0710\u0712-\u072f\u074d-\u07a5\u07b1\u07ca-\u07ea\u07f4\u07f5\u07fa\u0800-\u0815\u081a\u0824\u0828\u0840-\u0858\u08a0\u08a2-\u08ac\u0904-\u0939\u093d\u0950\u0958-\u0961\u0971-\u0977\u0979-\u097f\u0985-\u098c\u098f\u0990\u0993-\u09a8\u09aa-\u09b0\u09b2\u09b6-\u09b9\u09bd\u09ce\u09dc\u09dd\u09df-\u09e1\u09f0\u09f1\u0a05-\u0a0a\u0a0f\u0a10\u0a13-\u0a28\u0a2a-\u0a30\u0a32\u0a33\u0a35\u0a36\u0a38\u0a39\u0a59-\u0a5c\u0a5e\u0a72-\u0a74\u0a85-\u0a8d\u0a8f-\u0a91\u0a93-\u0aa8\u0aaa-\u0ab0\u0ab2\u0ab3\u0ab5-\u0ab9\u0abd\u0ad0\u0ae0\u0ae1\u0b05-\u0b0c\u0b0f\u0b10\u0b13-\u0b28\u0b2a-\u0b30\u0b32\u0b33\u0b35-\u0b39\u0b3d\u0b5c\u0b5d\u0b5f-\u0b61\u0b71\u0b83\u0b85-\u0b8a\u0b8e-\u0b90\u0b92-\u0b95\u0b99\u0b9a\u0b9c\u0b9e\u0b9f\u0ba3\u0ba4\u0ba8-\u0baa\u0bae-\u0bb9\u0bd0\u0c05-\u0c0c\u0c0e-\u0c10\u0c12-\u0c28\u0c2a-\u0c33\u0c35-\u0c39\u0c3d\u0c58\u0c59\u0c60\u0c61\u0c85-\u0c8c\u0c8e-\u0c90\u0c92-\u0ca8\u0caa-\u0cb3\u0cb5-\u0cb9\u0cbd\u0cde\u0ce0\u0ce1\u0cf1\u0cf2\u0d05-\u0d0c\u0d0e-\u0d10\u0d12-\u0d3a\u0d3d\u0d4e\u0d60\u0d61\u0d7a-\u0d7f\u0d85-\u0d96\u0d9a-\u0db1\u0db3-\u0dbb\u0dbd\u0dc0-\u0dc6\u0e01-\u0e30\u0e32\u0e33\u0e40-\u0e46\u0e81\u0e82\u0e84\u0e87\u0e88\u0e8a\u0e8d\u0e94-\u0e97\u0e99-\u0e9f\u0ea1-\u0ea3\u0ea5\u0ea7\u0eaa\u0eab\u0ead-\u0eb0\u0eb2\u0eb3\u0ebd\u0ec0-\u0ec4\u0ec6\u0edc-\u0edf\u0f00\u0f40-\u0f47\u0f49-\u0f6c\u0f88-\u0f8c\u1000-\u102a\u103f\u1050-\u1055\u105a-\u105d\u1061\u1065\u1066\u106e-\u1070\u1075-\u1081\u108e\u10a0-\u10c5\u10c7\u10cd\u10d0-\u10fa\u10fc-\u1248\u124a-\u124d\u1250-\u1256\u1258\u125a-\u125d\u1260-\u1288\u128a-\u128d\u1290-\u12b0\u12b2-\u12b5\u12b8-\u12be\u12c0\u12c2-\u12c5\u12c8-\u12d6\u12d8-\u1310\u1312-\u1315\u1318-\u135a\u1380-\u138f\u13a0-\u13f4\u1401-\u166c\u166f-\u167f\u1681-\u169a\u16a0-\u16ea\u16ee-\u16f0\u1700-\u170c\u170e-\u1711\u1720-\u1731\u1740-\u1751\u1760-\u176c\u176e-\u1770\u1780-\u17b3\u17d7\u17dc\u1820-\u1877\u1880-\u18a8\u18aa\u18b0-\u18f5\u1900-\u191c\u1950-\u196d\u1970-\u1974\u1980-\u19ab\u19c1-\u19c7\u1a00-\u1a16\u1a20-\u1a54\u1aa7\u1b05-\u1b33\u1b45-\u1b4b\u1b83-\u1ba0\u1bae\u1baf\u1bba-\u1be5\u1c00-\u1c23\u1c4d-\u1c4f\u1c5a-\u1c7d\u1ce9-\u1cec\u1cee-\u1cf1\u1cf5\u1cf6\u1d00-\u1dbf\u1e00-\u1f15\u1f18-\u1f1d\u1f20-\u1f45\u1f48-\u1f4d\u1f50-\u1f57\u1f59\u1f5b\u1f5d\u1f5f-\u1f7d\u1f80-\u1fb4\u1fb6-\u1fbc\u1fbe\u1fc2-\u1fc4\u1fc6-\u1fcc\u1fd0-\u1fd3\u1fd6-\u1fdb\u1fe0-\u1fec\u1ff2-\u1ff4\u1ff6-\u1ffc\u2071\u207f\u2090-\u209c\u2102\u2107\u210a-\u2113\u2115\u2119-\u211d\u2124\u2126\u2128\u212a-\u212d\u212f-\u2139\u213c-\u213f\u2145-\u2149\u214e\u2160-\u2188\u2c00-\u2c2e\u2c30-\u2c5e\u2c60-\u2ce4\u2ceb-\u2cee\u2cf2\u2cf3\u2d00-\u2d25\u2d27\u2d2d\u2d30-\u2d67\u2d6f\u2d80-\u2d96\u2da0-\u2da6\u2da8-\u2dae\u2db0-\u2db6\u2db8-\u2dbe\u2dc0-\u2dc6\u2dc8-\u2dce\u2dd0-\u2dd6\u2dd8-\u2dde\u2e2f\u3005-\u3007\u3021-\u3029\u3031-\u3035\u3038-\u303c\u3041-\u3096\u309d-\u309f\u30a1-\u30fa\u30fc-\u30ff\u3105-\u312d\u3131-\u318e\u31a0-\u31ba\u31f0-\u31ff\u3400-\u4db5\u4e00-\u9fcc\ua000-\ua48c\ua4d0-\ua4fd\ua500-\ua60c\ua610-\ua61f\ua62a\ua62b\ua640-\ua66e\ua67f-\ua697\ua6a0-\ua6ef\ua717-\ua71f\ua722-\ua788\ua78b-\ua78e\ua790-\ua793\ua7a0-\ua7aa\ua7f8-\ua801\ua803-\ua805\ua807-\ua80a\ua80c-\ua822\ua840-\ua873\ua882-\ua8b3\ua8f2-\ua8f7\ua8fb\ua90a-\ua925\ua930-\ua946\ua960-\ua97c\ua984-\ua9b2\ua9cf\uaa00-\uaa28\uaa40-\uaa42\uaa44-\uaa4b\uaa60-\uaa76\uaa7a\uaa80-\uaaaf\uaab1\uaab5\uaab6\uaab9-\uaabd\uaac0\uaac2\uaadb-\uaadd\uaae0-\uaaea\uaaf2-\uaaf4\uab01-\uab06\uab09-\uab0e\uab11-\uab16\uab20-\uab26\uab28-\uab2e\uabc0-\uabe2\uac00-\ud7a3\ud7b0-\ud7c6\ud7cb-\ud7fb\uf900-\ufa6d\ufa70-\ufad9\ufb00-\ufb06\ufb13-\ufb17\ufb1d\ufb1f-\ufb28\ufb2a-\ufb36\ufb38-\ufb3c\ufb3e\ufb40\ufb41\ufb43\ufb44\ufb46-\ufbb1\ufbd3-\ufd3d\ufd50-\ufd8f\ufd92-\ufdc7\ufdf0-\ufdfb\ufe70-\ufe74\ufe76-\ufefc\uff21-\uff3a\uff41-\uff5a\uff66-\uffbe\uffc2-\uffc7\uffca-\uffcf\uffd2-\uffd7\uffda-\uffdc]"),
-"NonAsciiIdentifierPart": RegExp(u"[\xaa\xb5\xba\xc0-\xd6\xd8-\xf6\xf8-\u02c1\u02c6-\u02d1\u02e0-\u02e4\u02ec\u02ee\u0300-\u0374\u0376\u0377\u037a-\u037d\u0386\u0388-\u038a\u038c\u038e-\u03a1\u03a3-\u03f5\u03f7-\u0481\u0483-\u0487\u048a-\u0527\u0531-\u0556\u0559\u0561-\u0587\u0591-\u05bd\u05bf\u05c1\u05c2\u05c4\u05c5\u05c7\u05d0-\u05ea\u05f0-\u05f2\u0610-\u061a\u0620-\u0669\u066e-\u06d3\u06d5-\u06dc\u06df-\u06e8\u06ea-\u06fc\u06ff\u0710-\u074a\u074d-\u07b1\u07c0-\u07f5\u07fa\u0800-\u082d\u0840-\u085b\u08a0\u08a2-\u08ac\u08e4-\u08fe\u0900-\u0963\u0966-\u096f\u0971-\u0977\u0979-\u097f\u0981-\u0983\u0985-\u098c\u098f\u0990\u0993-\u09a8\u09aa-\u09b0\u09b2\u09b6-\u09b9\u09bc-\u09c4\u09c7\u09c8\u09cb-\u09ce\u09d7\u09dc\u09dd\u09df-\u09e3\u09e6-\u09f1\u0a01-\u0a03\u0a05-\u0a0a\u0a0f\u0a10\u0a13-\u0a28\u0a2a-\u0a30\u0a32\u0a33\u0a35\u0a36\u0a38\u0a39\u0a3c\u0a3e-\u0a42\u0a47\u0a48\u0a4b-\u0a4d\u0a51\u0a59-\u0a5c\u0a5e\u0a66-\u0a75\u0a81-\u0a83\u0a85-\u0a8d\u0a8f-\u0a91\u0a93-\u0aa8\u0aaa-\u0ab0\u0ab2\u0ab3\u0ab5-\u0ab9\u0abc-\u0ac5\u0ac7-\u0ac9\u0acb-\u0acd\u0ad0\u0ae0-\u0ae3\u0ae6-\u0aef\u0b01-\u0b03\u0b05-\u0b0c\u0b0f\u0b10\u0b13-\u0b28\u0b2a-\u0b30\u0b32\u0b33\u0b35-\u0b39\u0b3c-\u0b44\u0b47\u0b48\u0b4b-\u0b4d\u0b56\u0b57\u0b5c\u0b5d\u0b5f-\u0b63\u0b66-\u0b6f\u0b71\u0b82\u0b83\u0b85-\u0b8a\u0b8e-\u0b90\u0b92-\u0b95\u0b99\u0b9a\u0b9c\u0b9e\u0b9f\u0ba3\u0ba4\u0ba8-\u0baa\u0bae-\u0bb9\u0bbe-\u0bc2\u0bc6-\u0bc8\u0bca-\u0bcd\u0bd0\u0bd7\u0be6-\u0bef\u0c01-\u0c03\u0c05-\u0c0c\u0c0e-\u0c10\u0c12-\u0c28\u0c2a-\u0c33\u0c35-\u0c39\u0c3d-\u0c44\u0c46-\u0c48\u0c4a-\u0c4d\u0c55\u0c56\u0c58\u0c59\u0c60-\u0c63\u0c66-\u0c6f\u0c82\u0c83\u0c85-\u0c8c\u0c8e-\u0c90\u0c92-\u0ca8\u0caa-\u0cb3\u0cb5-\u0cb9\u0cbc-\u0cc4\u0cc6-\u0cc8\u0cca-\u0ccd\u0cd5\u0cd6\u0cde\u0ce0-\u0ce3\u0ce6-\u0cef\u0cf1\u0cf2\u0d02\u0d03\u0d05-\u0d0c\u0d0e-\u0d10\u0d12-\u0d3a\u0d3d-\u0d44\u0d46-\u0d48\u0d4a-\u0d4e\u0d57\u0d60-\u0d63\u0d66-\u0d6f\u0d7a-\u0d7f\u0d82\u0d83\u0d85-\u0d96\u0d9a-\u0db1\u0db3-\u0dbb\u0dbd\u0dc0-\u0dc6\u0dca\u0dcf-\u0dd4\u0dd6\u0dd8-\u0ddf\u0df2\u0df3\u0e01-\u0e3a\u0e40-\u0e4e\u0e50-\u0e59\u0e81\u0e82\u0e84\u0e87\u0e88\u0e8a\u0e8d\u0e94-\u0e97\u0e99-\u0e9f\u0ea1-\u0ea3\u0ea5\u0ea7\u0eaa\u0eab\u0ead-\u0eb9\u0ebb-\u0ebd\u0ec0-\u0ec4\u0ec6\u0ec8-\u0ecd\u0ed0-\u0ed9\u0edc-\u0edf\u0f00\u0f18\u0f19\u0f20-\u0f29\u0f35\u0f37\u0f39\u0f3e-\u0f47\u0f49-\u0f6c\u0f71-\u0f84\u0f86-\u0f97\u0f99-\u0fbc\u0fc6\u1000-\u1049\u1050-\u109d\u10a0-\u10c5\u10c7\u10cd\u10d0-\u10fa\u10fc-\u1248\u124a-\u124d\u1250-\u1256\u1258\u125a-\u125d\u1260-\u1288\u128a-\u128d\u1290-\u12b0\u12b2-\u12b5\u12b8-\u12be\u12c0\u12c2-\u12c5\u12c8-\u12d6\u12d8-\u1310\u1312-\u1315\u1318-\u135a\u135d-\u135f\u1380-\u138f\u13a0-\u13f4\u1401-\u166c\u166f-\u167f\u1681-\u169a\u16a0-\u16ea\u16ee-\u16f0\u1700-\u170c\u170e-\u1714\u1720-\u1734\u1740-\u1753\u1760-\u176c\u176e-\u1770\u1772\u1773\u1780-\u17d3\u17d7\u17dc\u17dd\u17e0-\u17e9\u180b-\u180d\u1810-\u1819\u1820-\u1877\u1880-\u18aa\u18b0-\u18f5\u1900-\u191c\u1920-\u192b\u1930-\u193b\u1946-\u196d\u1970-\u1974\u1980-\u19ab\u19b0-\u19c9\u19d0-\u19d9\u1a00-\u1a1b\u1a20-\u1a5e\u1a60-\u1a7c\u1a7f-\u1a89\u1a90-\u1a99\u1aa7\u1b00-\u1b4b\u1b50-\u1b59\u1b6b-\u1b73\u1b80-\u1bf3\u1c00-\u1c37\u1c40-\u1c49\u1c4d-\u1c7d\u1cd0-\u1cd2\u1cd4-\u1cf6\u1d00-\u1de6\u1dfc-\u1f15\u1f18-\u1f1d\u1f20-\u1f45\u1f48-\u1f4d\u1f50-\u1f57\u1f59\u1f5b\u1f5d\u1f5f-\u1f7d\u1f80-\u1fb4\u1fb6-\u1fbc\u1fbe\u1fc2-\u1fc4\u1fc6-\u1fcc\u1fd0-\u1fd3\u1fd6-\u1fdb\u1fe0-\u1fec\u1ff2-\u1ff4\u1ff6-\u1ffc\u200c\u200d\u203f\u2040\u2054\u2071\u207f\u2090-\u209c\u20d0-\u20dc\u20e1\u20e5-\u20f0\u2102\u2107\u210a-\u2113\u2115\u2119-\u211d\u2124\u2126\u2128\u212a-\u212d\u212f-\u2139\u213c-\u213f\u2145-\u2149\u214e\u2160-\u2188\u2c00-\u2c2e\u2c30-\u2c5e\u2c60-\u2ce4\u2ceb-\u2cf3\u2d00-\u2d25\u2d27\u2d2d\u2d30-\u2d67\u2d6f\u2d7f-\u2d96\u2da0-\u2da6\u2da8-\u2dae\u2db0-\u2db6\u2db8-\u2dbe\u2dc0-\u2dc6\u2dc8-\u2dce\u2dd0-\u2dd6\u2dd8-\u2dde\u2de0-\u2dff\u2e2f\u3005-\u3007\u3021-\u302f\u3031-\u3035\u3038-\u303c\u3041-\u3096\u3099\u309a\u309d-\u309f\u30a1-\u30fa\u30fc-\u30ff\u3105-\u312d\u3131-\u318e\u31a0-\u31ba\u31f0-\u31ff\u3400-\u4db5\u4e00-\u9fcc\ua000-\ua48c\ua4d0-\ua4fd\ua500-\ua60c\ua610-\ua62b\ua640-\ua66f\ua674-\ua67d\ua67f-\ua697\ua69f-\ua6f1\ua717-\ua71f\ua722-\ua788\ua78b-\ua78e\ua790-\ua793\ua7a0-\ua7aa\ua7f8-\ua827\ua840-\ua873\ua880-\ua8c4\ua8d0-\ua8d9\ua8e0-\ua8f7\ua8fb\ua900-\ua92d\ua930-\ua953\ua960-\ua97c\ua980-\ua9c0\ua9cf-\ua9d9\uaa00-\uaa36\uaa40-\uaa4d\uaa50-\uaa59\uaa60-\uaa76\uaa7a\uaa7b\uaa80-\uaac2\uaadb-\uaadd\uaae0-\uaaef\uaaf2-\uaaf6\uab01-\uab06\uab09-\uab0e\uab11-\uab16\uab20-\uab26\uab28-\uab2e\uabc0-\uabea\uabec\uabed\uabf0-\uabf9\uac00-\ud7a3\ud7b0-\ud7c6\ud7cb-\ud7fb\uf900-\ufa6d\ufa70-\ufad9\ufb00-\ufb06\ufb13-\ufb17\ufb1d-\ufb28\ufb2a-\ufb36\ufb38-\ufb3c\ufb3e\ufb40\ufb41\ufb43\ufb44\ufb46-\ufbb1\ufbd3-\ufd3d\ufd50-\ufd8f\ufd92-\ufdc7\ufdf0-\ufdfb\ufe00-\ufe0f\ufe20-\ufe26\ufe33\ufe34\ufe4d-\ufe4f\ufe70-\ufe74\ufe76-\ufefc\uff10-\uff19\uff21-\uff3a\uff3f\uff41-\uff5a\uff66-\uffbe\uffc2-\uffc7\uffca-\uffcf\uffd2-\uffd7\uffda-\uffdc]"),
+    "NonAsciiIdentifierStart": RegExp(
+        u"[\xaa\xb5\xba\xc0-\xd6\xd8-\xf6\xf8-\u02c1\u02c6-\u02d1\u02e0-\u02e4\u02ec\u02ee\u0370-\u0374\u0376\u0377\u037a-\u037d\u0386\u0388-\u038a\u038c\u038e-\u03a1\u03a3-\u03f5\u03f7-\u0481\u048a-\u0527\u0531-\u0556\u0559\u0561-\u0587\u05d0-\u05ea\u05f0-\u05f2\u0620-\u064a\u066e\u066f\u0671-\u06d3\u06d5\u06e5\u06e6\u06ee\u06ef\u06fa-\u06fc\u06ff\u0710\u0712-\u072f\u074d-\u07a5\u07b1\u07ca-\u07ea\u07f4\u07f5\u07fa\u0800-\u0815\u081a\u0824\u0828\u0840-\u0858\u08a0\u08a2-\u08ac\u0904-\u0939\u093d\u0950\u0958-\u0961\u0971-\u0977\u0979-\u097f\u0985-\u098c\u098f\u0990\u0993-\u09a8\u09aa-\u09b0\u09b2\u09b6-\u09b9\u09bd\u09ce\u09dc\u09dd\u09df-\u09e1\u09f0\u09f1\u0a05-\u0a0a\u0a0f\u0a10\u0a13-\u0a28\u0a2a-\u0a30\u0a32\u0a33\u0a35\u0a36\u0a38\u0a39\u0a59-\u0a5c\u0a5e\u0a72-\u0a74\u0a85-\u0a8d\u0a8f-\u0a91\u0a93-\u0aa8\u0aaa-\u0ab0\u0ab2\u0ab3\u0ab5-\u0ab9\u0abd\u0ad0\u0ae0\u0ae1\u0b05-\u0b0c\u0b0f\u0b10\u0b13-\u0b28\u0b2a-\u0b30\u0b32\u0b33\u0b35-\u0b39\u0b3d\u0b5c\u0b5d\u0b5f-\u0b61\u0b71\u0b83\u0b85-\u0b8a\u0b8e-\u0b90\u0b92-\u0b95\u0b99\u0b9a\u0b9c\u0b9e\u0b9f\u0ba3\u0ba4\u0ba8-\u0baa\u0bae-\u0bb9\u0bd0\u0c05-\u0c0c\u0c0e-\u0c10\u0c12-\u0c28\u0c2a-\u0c33\u0c35-\u0c39\u0c3d\u0c58\u0c59\u0c60\u0c61\u0c85-\u0c8c\u0c8e-\u0c90\u0c92-\u0ca8\u0caa-\u0cb3\u0cb5-\u0cb9\u0cbd\u0cde\u0ce0\u0ce1\u0cf1\u0cf2\u0d05-\u0d0c\u0d0e-\u0d10\u0d12-\u0d3a\u0d3d\u0d4e\u0d60\u0d61\u0d7a-\u0d7f\u0d85-\u0d96\u0d9a-\u0db1\u0db3-\u0dbb\u0dbd\u0dc0-\u0dc6\u0e01-\u0e30\u0e32\u0e33\u0e40-\u0e46\u0e81\u0e82\u0e84\u0e87\u0e88\u0e8a\u0e8d\u0e94-\u0e97\u0e99-\u0e9f\u0ea1-\u0ea3\u0ea5\u0ea7\u0eaa\u0eab\u0ead-\u0eb0\u0eb2\u0eb3\u0ebd\u0ec0-\u0ec4\u0ec6\u0edc-\u0edf\u0f00\u0f40-\u0f47\u0f49-\u0f6c\u0f88-\u0f8c\u1000-\u102a\u103f\u1050-\u1055\u105a-\u105d\u1061\u1065\u1066\u106e-\u1070\u1075-\u1081\u108e\u10a0-\u10c5\u10c7\u10cd\u10d0-\u10fa\u10fc-\u1248\u124a-\u124d\u1250-\u1256\u1258\u125a-\u125d\u1260-\u1288\u128a-\u128d\u1290-\u12b0\u12b2-\u12b5\u12b8-\u12be\u12c0\u12c2-\u12c5\u12c8-\u12d6\u12d8-\u1310\u1312-\u1315\u1318-\u135a\u1380-\u138f\u13a0-\u13f4\u1401-\u166c\u166f-\u167f\u1681-\u169a\u16a0-\u16ea\u16ee-\u16f0\u1700-\u170c\u170e-\u1711\u1720-\u1731\u1740-\u1751\u1760-\u176c\u176e-\u1770\u1780-\u17b3\u17d7\u17dc\u1820-\u1877\u1880-\u18a8\u18aa\u18b0-\u18f5\u1900-\u191c\u1950-\u196d\u1970-\u1974\u1980-\u19ab\u19c1-\u19c7\u1a00-\u1a16\u1a20-\u1a54\u1aa7\u1b05-\u1b33\u1b45-\u1b4b\u1b83-\u1ba0\u1bae\u1baf\u1bba-\u1be5\u1c00-\u1c23\u1c4d-\u1c4f\u1c5a-\u1c7d\u1ce9-\u1cec\u1cee-\u1cf1\u1cf5\u1cf6\u1d00-\u1dbf\u1e00-\u1f15\u1f18-\u1f1d\u1f20-\u1f45\u1f48-\u1f4d\u1f50-\u1f57\u1f59\u1f5b\u1f5d\u1f5f-\u1f7d\u1f80-\u1fb4\u1fb6-\u1fbc\u1fbe\u1fc2-\u1fc4\u1fc6-\u1fcc\u1fd0-\u1fd3\u1fd6-\u1fdb\u1fe0-\u1fec\u1ff2-\u1ff4\u1ff6-\u1ffc\u2071\u207f\u2090-\u209c\u2102\u2107\u210a-\u2113\u2115\u2119-\u211d\u2124\u2126\u2128\u212a-\u212d\u212f-\u2139\u213c-\u213f\u2145-\u2149\u214e\u2160-\u2188\u2c00-\u2c2e\u2c30-\u2c5e\u2c60-\u2ce4\u2ceb-\u2cee\u2cf2\u2cf3\u2d00-\u2d25\u2d27\u2d2d\u2d30-\u2d67\u2d6f\u2d80-\u2d96\u2da0-\u2da6\u2da8-\u2dae\u2db0-\u2db6\u2db8-\u2dbe\u2dc0-\u2dc6\u2dc8-\u2dce\u2dd0-\u2dd6\u2dd8-\u2dde\u2e2f\u3005-\u3007\u3021-\u3029\u3031-\u3035\u3038-\u303c\u3041-\u3096\u309d-\u309f\u30a1-\u30fa\u30fc-\u30ff\u3105-\u312d\u3131-\u318e\u31a0-\u31ba\u31f0-\u31ff\u3400-\u4db5\u4e00-\u9fcc\ua000-\ua48c\ua4d0-\ua4fd\ua500-\ua60c\ua610-\ua61f\ua62a\ua62b\ua640-\ua66e\ua67f-\ua697\ua6a0-\ua6ef\ua717-\ua71f\ua722-\ua788\ua78b-\ua78e\ua790-\ua793\ua7a0-\ua7aa\ua7f8-\ua801\ua803-\ua805\ua807-\ua80a\ua80c-\ua822\ua840-\ua873\ua882-\ua8b3\ua8f2-\ua8f7\ua8fb\ua90a-\ua925\ua930-\ua946\ua960-\ua97c\ua984-\ua9b2\ua9cf\uaa00-\uaa28\uaa40-\uaa42\uaa44-\uaa4b\uaa60-\uaa76\uaa7a\uaa80-\uaaaf\uaab1\uaab5\uaab6\uaab9-\uaabd\uaac0\uaac2\uaadb-\uaadd\uaae0-\uaaea\uaaf2-\uaaf4\uab01-\uab06\uab09-\uab0e\uab11-\uab16\uab20-\uab26\uab28-\uab2e\uabc0-\uabe2\uac00-\ud7a3\ud7b0-\ud7c6\ud7cb-\ud7fb\uf900-\ufa6d\ufa70-\ufad9\ufb00-\ufb06\ufb13-\ufb17\ufb1d\ufb1f-\ufb28\ufb2a-\ufb36\ufb38-\ufb3c\ufb3e\ufb40\ufb41\ufb43\ufb44\ufb46-\ufbb1\ufbd3-\ufd3d\ufd50-\ufd8f\ufd92-\ufdc7\ufdf0-\ufdfb\ufe70-\ufe74\ufe76-\ufefc\uff21-\uff3a\uff41-\uff5a\uff66-\uffbe\uffc2-\uffc7\uffca-\uffcf\uffd2-\uffd7\uffda-\uffdc]"),
+    "NonAsciiIdentifierPart": RegExp(
+        u"[\xaa\xb5\xba\xc0-\xd6\xd8-\xf6\xf8-\u02c1\u02c6-\u02d1\u02e0-\u02e4\u02ec\u02ee\u0300-\u0374\u0376\u0377\u037a-\u037d\u0386\u0388-\u038a\u038c\u038e-\u03a1\u03a3-\u03f5\u03f7-\u0481\u0483-\u0487\u048a-\u0527\u0531-\u0556\u0559\u0561-\u0587\u0591-\u05bd\u05bf\u05c1\u05c2\u05c4\u05c5\u05c7\u05d0-\u05ea\u05f0-\u05f2\u0610-\u061a\u0620-\u0669\u066e-\u06d3\u06d5-\u06dc\u06df-\u06e8\u06ea-\u06fc\u06ff\u0710-\u074a\u074d-\u07b1\u07c0-\u07f5\u07fa\u0800-\u082d\u0840-\u085b\u08a0\u08a2-\u08ac\u08e4-\u08fe\u0900-\u0963\u0966-\u096f\u0971-\u0977\u0979-\u097f\u0981-\u0983\u0985-\u098c\u098f\u0990\u0993-\u09a8\u09aa-\u09b0\u09b2\u09b6-\u09b9\u09bc-\u09c4\u09c7\u09c8\u09cb-\u09ce\u09d7\u09dc\u09dd\u09df-\u09e3\u09e6-\u09f1\u0a01-\u0a03\u0a05-\u0a0a\u0a0f\u0a10\u0a13-\u0a28\u0a2a-\u0a30\u0a32\u0a33\u0a35\u0a36\u0a38\u0a39\u0a3c\u0a3e-\u0a42\u0a47\u0a48\u0a4b-\u0a4d\u0a51\u0a59-\u0a5c\u0a5e\u0a66-\u0a75\u0a81-\u0a83\u0a85-\u0a8d\u0a8f-\u0a91\u0a93-\u0aa8\u0aaa-\u0ab0\u0ab2\u0ab3\u0ab5-\u0ab9\u0abc-\u0ac5\u0ac7-\u0ac9\u0acb-\u0acd\u0ad0\u0ae0-\u0ae3\u0ae6-\u0aef\u0b01-\u0b03\u0b05-\u0b0c\u0b0f\u0b10\u0b13-\u0b28\u0b2a-\u0b30\u0b32\u0b33\u0b35-\u0b39\u0b3c-\u0b44\u0b47\u0b48\u0b4b-\u0b4d\u0b56\u0b57\u0b5c\u0b5d\u0b5f-\u0b63\u0b66-\u0b6f\u0b71\u0b82\u0b83\u0b85-\u0b8a\u0b8e-\u0b90\u0b92-\u0b95\u0b99\u0b9a\u0b9c\u0b9e\u0b9f\u0ba3\u0ba4\u0ba8-\u0baa\u0bae-\u0bb9\u0bbe-\u0bc2\u0bc6-\u0bc8\u0bca-\u0bcd\u0bd0\u0bd7\u0be6-\u0bef\u0c01-\u0c03\u0c05-\u0c0c\u0c0e-\u0c10\u0c12-\u0c28\u0c2a-\u0c33\u0c35-\u0c39\u0c3d-\u0c44\u0c46-\u0c48\u0c4a-\u0c4d\u0c55\u0c56\u0c58\u0c59\u0c60-\u0c63\u0c66-\u0c6f\u0c82\u0c83\u0c85-\u0c8c\u0c8e-\u0c90\u0c92-\u0ca8\u0caa-\u0cb3\u0cb5-\u0cb9\u0cbc-\u0cc4\u0cc6-\u0cc8\u0cca-\u0ccd\u0cd5\u0cd6\u0cde\u0ce0-\u0ce3\u0ce6-\u0cef\u0cf1\u0cf2\u0d02\u0d03\u0d05-\u0d0c\u0d0e-\u0d10\u0d12-\u0d3a\u0d3d-\u0d44\u0d46-\u0d48\u0d4a-\u0d4e\u0d57\u0d60-\u0d63\u0d66-\u0d6f\u0d7a-\u0d7f\u0d82\u0d83\u0d85-\u0d96\u0d9a-\u0db1\u0db3-\u0dbb\u0dbd\u0dc0-\u0dc6\u0dca\u0dcf-\u0dd4\u0dd6\u0dd8-\u0ddf\u0df2\u0df3\u0e01-\u0e3a\u0e40-\u0e4e\u0e50-\u0e59\u0e81\u0e82\u0e84\u0e87\u0e88\u0e8a\u0e8d\u0e94-\u0e97\u0e99-\u0e9f\u0ea1-\u0ea3\u0ea5\u0ea7\u0eaa\u0eab\u0ead-\u0eb9\u0ebb-\u0ebd\u0ec0-\u0ec4\u0ec6\u0ec8-\u0ecd\u0ed0-\u0ed9\u0edc-\u0edf\u0f00\u0f18\u0f19\u0f20-\u0f29\u0f35\u0f37\u0f39\u0f3e-\u0f47\u0f49-\u0f6c\u0f71-\u0f84\u0f86-\u0f97\u0f99-\u0fbc\u0fc6\u1000-\u1049\u1050-\u109d\u10a0-\u10c5\u10c7\u10cd\u10d0-\u10fa\u10fc-\u1248\u124a-\u124d\u1250-\u1256\u1258\u125a-\u125d\u1260-\u1288\u128a-\u128d\u1290-\u12b0\u12b2-\u12b5\u12b8-\u12be\u12c0\u12c2-\u12c5\u12c8-\u12d6\u12d8-\u1310\u1312-\u1315\u1318-\u135a\u135d-\u135f\u1380-\u138f\u13a0-\u13f4\u1401-\u166c\u166f-\u167f\u1681-\u169a\u16a0-\u16ea\u16ee-\u16f0\u1700-\u170c\u170e-\u1714\u1720-\u1734\u1740-\u1753\u1760-\u176c\u176e-\u1770\u1772\u1773\u1780-\u17d3\u17d7\u17dc\u17dd\u17e0-\u17e9\u180b-\u180d\u1810-\u1819\u1820-\u1877\u1880-\u18aa\u18b0-\u18f5\u1900-\u191c\u1920-\u192b\u1930-\u193b\u1946-\u196d\u1970-\u1974\u1980-\u19ab\u19b0-\u19c9\u19d0-\u19d9\u1a00-\u1a1b\u1a20-\u1a5e\u1a60-\u1a7c\u1a7f-\u1a89\u1a90-\u1a99\u1aa7\u1b00-\u1b4b\u1b50-\u1b59\u1b6b-\u1b73\u1b80-\u1bf3\u1c00-\u1c37\u1c40-\u1c49\u1c4d-\u1c7d\u1cd0-\u1cd2\u1cd4-\u1cf6\u1d00-\u1de6\u1dfc-\u1f15\u1f18-\u1f1d\u1f20-\u1f45\u1f48-\u1f4d\u1f50-\u1f57\u1f59\u1f5b\u1f5d\u1f5f-\u1f7d\u1f80-\u1fb4\u1fb6-\u1fbc\u1fbe\u1fc2-\u1fc4\u1fc6-\u1fcc\u1fd0-\u1fd3\u1fd6-\u1fdb\u1fe0-\u1fec\u1ff2-\u1ff4\u1ff6-\u1ffc\u200c\u200d\u203f\u2040\u2054\u2071\u207f\u2090-\u209c\u20d0-\u20dc\u20e1\u20e5-\u20f0\u2102\u2107\u210a-\u2113\u2115\u2119-\u211d\u2124\u2126\u2128\u212a-\u212d\u212f-\u2139\u213c-\u213f\u2145-\u2149\u214e\u2160-\u2188\u2c00-\u2c2e\u2c30-\u2c5e\u2c60-\u2ce4\u2ceb-\u2cf3\u2d00-\u2d25\u2d27\u2d2d\u2d30-\u2d67\u2d6f\u2d7f-\u2d96\u2da0-\u2da6\u2da8-\u2dae\u2db0-\u2db6\u2db8-\u2dbe\u2dc0-\u2dc6\u2dc8-\u2dce\u2dd0-\u2dd6\u2dd8-\u2dde\u2de0-\u2dff\u2e2f\u3005-\u3007\u3021-\u302f\u3031-\u3035\u3038-\u303c\u3041-\u3096\u3099\u309a\u309d-\u309f\u30a1-\u30fa\u30fc-\u30ff\u3105-\u312d\u3131-\u318e\u31a0-\u31ba\u31f0-\u31ff\u3400-\u4db5\u4e00-\u9fcc\ua000-\ua48c\ua4d0-\ua4fd\ua500-\ua60c\ua610-\ua62b\ua640-\ua66f\ua674-\ua67d\ua67f-\ua697\ua69f-\ua6f1\ua717-\ua71f\ua722-\ua788\ua78b-\ua78e\ua790-\ua793\ua7a0-\ua7aa\ua7f8-\ua827\ua840-\ua873\ua880-\ua8c4\ua8d0-\ua8d9\ua8e0-\ua8f7\ua8fb\ua900-\ua92d\ua930-\ua953\ua960-\ua97c\ua980-\ua9c0\ua9cf-\ua9d9\uaa00-\uaa36\uaa40-\uaa4d\uaa50-\uaa59\uaa60-\uaa76\uaa7a\uaa7b\uaa80-\uaac2\uaadb-\uaadd\uaae0-\uaaef\uaaf2-\uaaf6\uab01-\uab06\uab09-\uab0e\uab11-\uab16\uab20-\uab26\uab28-\uab2e\uabc0-\uabea\uabec\uabed\uabf0-\uabf9\uac00-\ud7a3\ud7b0-\ud7c6\ud7cb-\ud7fb\uf900-\ufa6d\ufa70-\ufad9\ufb00-\ufb06\ufb13-\ufb17\ufb1d-\ufb28\ufb2a-\ufb36\ufb38-\ufb3c\ufb3e\ufb40\ufb41\ufb43\ufb44\ufb46-\ufbb1\ufbd3-\ufd3d\ufd50-\ufd8f\ufd92-\ufdc7\ufdf0-\ufdfb\ufe00-\ufe0f\ufe20-\ufe26\ufe33\ufe34\ufe4d-\ufe4f\ufe70-\ufe74\ufe76-\ufefc\uff10-\uff19\uff21-\uff3a\uff3f\uff41-\uff5a\uff66-\uffbe\uffc2-\uffc7\uffca-\uffcf\uffd2-\uffd7\uffda-\uffdc]"),
 })
+
 def assert__py__(condition=None, message=None):
     if not condition:
         raise RuntimeError("ASSERT: " + message)
@@ -554,20 +574,25 @@ def isOctalDigit(ch=None):
     return "01234567".find(ch) >= 0
 
 def isWhiteSpace(ch=None):
-    return (((((ch == 32) or (ch == 9)) or (ch == 11)) or (ch == 12)) or (ch == 160)) or ((ch >= 5760) and (u"\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\ufeff".find(unichr(ch)) > 0))
+    return (((((ch == 32) or (ch == 9)) or (ch == 11)) or (ch == 12)) or (ch == 160)) or ((ch >= 5760) and (
+    u"\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\ufeff".find(
+        unichr(ch)) > 0))
 
 def isLineTerminator(ch=None):
     return (((ch == 10) or (ch == 13)) or (ch == 8232)) or (ch == 8233)
 
 def isIdentifierStart(ch=None):
-    return (((((ch == 36) or (ch == 95)) or ((ch >= 65) and (ch <= 90))) or ((ch >= 97) and (ch <= 122))) or (ch == 92)) or ((ch >= 128) and Regex.NonAsciiIdentifierStart.test(unichr(ch)))
+    return (((((ch == 36) or (ch == 95)) or ((ch >= 65) and (ch <= 90))) or ((ch >= 97) and (ch <= 122))) or (
+    ch == 92)) or ((ch >= 128) and Regex.NonAsciiIdentifierStart.test(unichr(ch)))
 
 def isIdentifierPart(ch=None):
-    return ((((((ch == 36) or (ch == 95)) or ((ch >= 65) and (ch <= 90))) or ((ch >= 97) and (ch <= 122))) or ((ch >= 48) and (ch <= 57))) or (ch == 92)) or ((ch >= 128) and Regex.NonAsciiIdentifierPart.test(unichr(ch)))
+    return ((((((ch == 36) or (ch == 95)) or ((ch >= 65) and (ch <= 90))) or ((ch >= 97) and (ch <= 122))) or (
+    (ch >= 48) and (ch <= 57))) or (ch == 92)) or ((ch >= 128) and Regex.NonAsciiIdentifierPart.test(unichr(ch)))
 
 def isFutureReservedWord(id=None):
     while 1:
-        if (id == "super") or ((id == "import") or ((id == "extends") or ((id == "export") or ((id == "enum") or (id == "class"))))):
+        if (id == "super") or (
+            (id == "import") or ((id == "extends") or ((id == "export") or ((id == "enum") or (id == "class"))))):
             return True
         else:
             return False
@@ -575,7 +600,8 @@ def isFutureReservedWord(id=None):
 
 def isStrictModeReservedWord(id=None):
     while 1:
-        if (id == "let") or ((id == "yield") or ((id == "static") or ((id == "public") or ((id == "protected") or ((id == "private") or ((id == "package") or ((id == "interface") or (id == "implements")))))))):
+        if (id == "let") or ((id == "yield") or ((id == "static") or ((id == "public") or ((id == "protected") or (
+            (id == "private") or ((id == "package") or ((id == "interface") or (id == "implements")))))))):
             return True
         else:
             return False
@@ -593,11 +619,14 @@ def isKeyword(id=None):
         elif len(id) == 3:
             return ((((id == "var") or (id == "for")) or (id == "new")) or (id == "try")) or (id == "let")
         elif len(id) == 4:
-            return (((((id == "this") or (id == "else")) or (id == "case")) or (id == "void")) or (id == "with")) or (id == "enum")
+            return (((((id == "this") or (id == "else")) or (id == "case")) or (id == "void")) or (id == "with")) or (
+            id == "enum")
         elif len(id) == 5:
-            return (((((((id == "while") or (id == "break")) or (id == "catch")) or (id == "throw")) or (id == "const")) or (id == "yield")) or (id == "class")) or (id == "super")
+            return (((((((id == "while") or (id == "break")) or (id == "catch")) or (id == "throw")) or (
+            id == "const")) or (id == "yield")) or (id == "class")) or (id == "super")
         elif len(id) == 6:
-            return (((((id == "return") or (id == "typeof")) or (id == "delete")) or (id == "switch")) or (id == "export")) or (id == "import")
+            return (((((id == "return") or (id == "typeof")) or (id == "delete")) or (id == "switch")) or (
+            id == "export")) or (id == "import")
         elif len(id) == 7:
             return ((id == "default") or (id == "finally")) or (id == "extends")
         elif len(id) == 8:
@@ -610,14 +639,15 @@ def isKeyword(id=None):
 
 def addComment(type=None, value=None, start=None, end=None, loc=None):
     comment = None
-    assert__py__(('undefined' if not 'start' in locals() else typeof(start)) == "number", "Comment must have valid position")
+    assert__py__(('undefined' if not 'start' in locals() else typeof(start)) == "number",
+                 "Comment must have valid position")
     if state.lastCommentStart >= start:
-        return 
+        return
     state.lastCommentStart = start
     comment = jsdict({
-"type": type,
-"value": value,
-})
+        "type": type,
+        "value": value,
+    })
     if extra.range:
         comment.range = [start, end]
     if extra.loc:
@@ -632,11 +662,11 @@ def skipSingleLineComment():
     comment = None
     start = index - 2
     loc = jsdict({
-"start": jsdict({
-"line": lineNumber,
-"column": (index - lineStart) - 2,
-}),
-})
+        "start": jsdict({
+            "line": lineNumber,
+            "column": (index - lineStart) - 2,
+        }),
+    })
     while index < length:
         ch = (ord(source[index]) if index < len(source) else None)
         index += 1
@@ -645,9 +675,9 @@ def skipSingleLineComment():
             if extra.comments:
                 comment = source[(start + 2):(index - 1)]
                 loc.end = jsdict({
-"line": lineNumber,
-"column": (index - lineStart) - 1,
-})
+                    "line": lineNumber,
+                    "column": (index - lineStart) - 1,
+                })
                 addComment("Line", comment, start, index - 1, loc)
             if (ch == 13) and ((ord(source[index]) if index < len(source) else None) == 10):
                 index += 1
@@ -655,13 +685,13 @@ def skipSingleLineComment():
             lineNumber += 1
             lineNumber
             lineStart = index
-            return 
+            return
     if extra.comments:
         comment = source[(start + 2):index]
         loc.end = jsdict({
-"line": lineNumber,
-"column": index - lineStart,
-})
+            "line": lineNumber,
+            "column": index - lineStart,
+        })
         addComment("Line", comment, start, index, loc)
 
 def skipMultiLineComment():
@@ -673,11 +703,11 @@ def skipMultiLineComment():
     if extra.comments:
         start = index - 2
         loc = jsdict({
-"start": jsdict({
-"line": lineNumber,
-"column": (index - lineStart) - 2,
-}),
-})
+            "start": jsdict({
+                "line": lineNumber,
+                "column": (index - lineStart) - 2,
+            }),
+        })
     while index < length:
         ch = (ord(source[index]) if index < len(source) else None)
         if isLineTerminator(ch):
@@ -691,7 +721,7 @@ def skipMultiLineComment():
             lineStart = index
             if index >= length:
                 throwError(jsdict({
-}), Messages.UnexpectedToken, "ILLEGAL")
+                }), Messages.UnexpectedToken, "ILLEGAL")
         elif ch == 42:
             if (ord(source[index + 1]) if (index + 1) < len(source) else None) == 47:
                 index += 1
@@ -701,18 +731,18 @@ def skipMultiLineComment():
                 if extra.comments:
                     comment = source[(start + 2):(index - 2)]
                     loc.end = jsdict({
-"line": lineNumber,
-"column": index - lineStart,
-})
+                        "line": lineNumber,
+                        "column": index - lineStart,
+                    })
                     addComment("Block", comment, start, index, loc)
-                return 
+                return
             index += 1
             index
         else:
             index += 1
             index
     throwError(jsdict({
-}), Messages.UnexpectedToken, "ILLEGAL")
+    }), Messages.UnexpectedToken, "ILLEGAL")
 
 def skipComment():
     global index, lineNumber, lineStart
@@ -781,13 +811,13 @@ def getEscapedIdentifier():
     if ch == 92:
         if (ord(source[index]) if index < len(source) else None) != 117:
             throwError(jsdict({
-}), Messages.UnexpectedToken, "ILLEGAL")
+            }), Messages.UnexpectedToken, "ILLEGAL")
         index += 1
         index
         ch = scanHexEscape("u")
         if ((not ch) or (ch == "\\")) or (not isIdentifierStart((ord(ch[0]) if 0 < len(ch) else None))):
             throwError(jsdict({
-}), Messages.UnexpectedToken, "ILLEGAL")
+            }), Messages.UnexpectedToken, "ILLEGAL")
         id = ch
     while index < length:
         ch = (ord(source[index]) if index < len(source) else None)
@@ -800,13 +830,13 @@ def getEscapedIdentifier():
             id = id[0:(0 + (len(id) - 1))]
             if (ord(source[index]) if index < len(source) else None) != 117:
                 throwError(jsdict({
-}), Messages.UnexpectedToken, "ILLEGAL")
+                }), Messages.UnexpectedToken, "ILLEGAL")
             index += 1
             index
             ch = scanHexEscape("u")
             if ((not ch) or (ch == "\\")) or (not isIdentifierPart((ord(ch[0]) if 0 < len(ch) else None))):
                 throwError(jsdict({
-}), Messages.UnexpectedToken, "ILLEGAL")
+                }), Messages.UnexpectedToken, "ILLEGAL")
             id += ch
     return id
 
@@ -845,12 +875,12 @@ def scanIdentifier():
     else:
         type = Token.Identifier
     return jsdict({
-"type": type,
-"value": id,
-"lineNumber": lineNumber,
-"lineStart": lineStart,
-"range": [start, index],
-})
+        "type": type,
+        "value": id,
+        "lineNumber": lineNumber,
+        "lineStart": lineStart,
+        "range": [start, index],
+    })
 
 def scanPunctuator():
     global index
@@ -862,7 +892,8 @@ def scanPunctuator():
     ch3 = None
     ch4 = None
     while 1:
-        if (code == 126) or ((code == 63) or ((code == 58) or ((code == 93) or ((code == 91) or ((code == 125) or ((code == 123) or ((code == 44) or ((code == 59) or ((code == 41) or ((code == 40) or (code == 46))))))))))):
+        if (code == 126) or ((code == 63) or ((code == 58) or ((code == 93) or ((code == 91) or ((code == 125) or (
+            (code == 123) or ((code == 44) or ((code == 59) or ((code == 41) or ((code == 40) or (code == 46))))))))))):
             index += 1
             index
             if extra.tokenize:
@@ -871,37 +902,38 @@ def scanPunctuator():
                 elif code == 123:
                     extra.openCurlyToken = len(extra.tokens)
             return jsdict({
-"type": Token.Punctuator,
-"value": unichr(code),
-"lineNumber": lineNumber,
-"lineStart": lineStart,
-"range": [start, index],
-})
+                "type": Token.Punctuator,
+                "value": unichr(code),
+                "lineNumber": lineNumber,
+                "lineStart": lineStart,
+                "range": [start, index],
+            })
         else:
             code2 = (ord(source[index + 1]) if (index + 1) < len(source) else None)
             if code2 == 61:
                 while 1:
-                    if (code == 124) or ((code == 94) or ((code == 62) or ((code == 60) or ((code == 47) or ((code == 45) or ((code == 43) or ((code == 42) or ((code == 38) or (code == 37))))))))):
+                    if (code == 124) or ((code == 94) or ((code == 62) or ((code == 60) or ((code == 47) or (
+                        (code == 45) or ((code == 43) or ((code == 42) or ((code == 38) or (code == 37))))))))):
                         index += 2
                         return jsdict({
-"type": Token.Punctuator,
-"value": unichr(code) + unichr(code2),
-"lineNumber": lineNumber,
-"lineStart": lineStart,
-"range": [start, index],
-})
+                            "type": Token.Punctuator,
+                            "value": unichr(code) + unichr(code2),
+                            "lineNumber": lineNumber,
+                            "lineStart": lineStart,
+                            "range": [start, index],
+                        })
                     elif (code == 61) or (code == 33):
                         index += 2
                         if (ord(source[index]) if index < len(source) else None) == 61:
                             index += 1
                             index
                         return jsdict({
-"type": Token.Punctuator,
-"value": source[start:index],
-"lineNumber": lineNumber,
-"lineStart": lineStart,
-"range": [start, index],
-})
+                            "type": Token.Punctuator,
+                            "value": source[start:index],
+                            "lineNumber": lineNumber,
+                            "lineStart": lineStart,
+                            "range": [start, index],
+                        })
                     else:
                         break
                     break
@@ -914,60 +946,60 @@ def scanPunctuator():
         if ch4 == "=":
             index += 4
             return jsdict({
-"type": Token.Punctuator,
-"value": ">>>=",
-"lineNumber": lineNumber,
-"lineStart": lineStart,
-"range": [start, index],
-})
+                "type": Token.Punctuator,
+                "value": ">>>=",
+                "lineNumber": lineNumber,
+                "lineStart": lineStart,
+                "range": [start, index],
+            })
     if ((ch1 == ">") and (ch2 == ">")) and (ch3 == ">"):
         index += 3
         return jsdict({
-"type": Token.Punctuator,
-"value": ">>>",
-"lineNumber": lineNumber,
-"lineStart": lineStart,
-"range": [start, index],
-})
+            "type": Token.Punctuator,
+            "value": ">>>",
+            "lineNumber": lineNumber,
+            "lineStart": lineStart,
+            "range": [start, index],
+        })
     if ((ch1 == "<") and (ch2 == "<")) and (ch3 == "="):
         index += 3
         return jsdict({
-"type": Token.Punctuator,
-"value": "<<=",
-"lineNumber": lineNumber,
-"lineStart": lineStart,
-"range": [start, index],
-})
+            "type": Token.Punctuator,
+            "value": "<<=",
+            "lineNumber": lineNumber,
+            "lineStart": lineStart,
+            "range": [start, index],
+        })
     if ((ch1 == ">") and (ch2 == ">")) and (ch3 == "="):
         index += 3
         return jsdict({
-"type": Token.Punctuator,
-"value": ">>=",
-"lineNumber": lineNumber,
-"lineStart": lineStart,
-"range": [start, index],
-})
+            "type": Token.Punctuator,
+            "value": ">>=",
+            "lineNumber": lineNumber,
+            "lineStart": lineStart,
+            "range": [start, index],
+        })
     if (ch1 == ch2) and ("+-<>&|".find(ch1) >= 0):
         index += 2
         return jsdict({
-"type": Token.Punctuator,
-"value": ch1 + ch2,
-"lineNumber": lineNumber,
-"lineStart": lineStart,
-"range": [start, index],
-})
+            "type": Token.Punctuator,
+            "value": ch1 + ch2,
+            "lineNumber": lineNumber,
+            "lineStart": lineStart,
+            "range": [start, index],
+        })
     if "<>=!+-*%&|^/".find(ch1) >= 0:
         index += 1
         index
         return jsdict({
-"type": Token.Punctuator,
-"value": ch1,
-"lineNumber": lineNumber,
-"lineStart": lineStart,
-"range": [start, index],
-})
+            "type": Token.Punctuator,
+            "value": ch1,
+            "lineNumber": lineNumber,
+            "lineStart": lineStart,
+            "range": [start, index],
+        })
     throwError(jsdict({
-}), Messages.UnexpectedToken, "ILLEGAL")
+    }), Messages.UnexpectedToken, "ILLEGAL")
 
 def scanHexLiteral(start=None):
     global index
@@ -979,17 +1011,17 @@ def scanHexLiteral(start=None):
         number += source[index - 1]
     if len(number) == 0:
         throwError(jsdict({
-}), Messages.UnexpectedToken, "ILLEGAL")
+        }), Messages.UnexpectedToken, "ILLEGAL")
     if isIdentifierStart((ord(source[index]) if index < len(source) else None)):
         throwError(jsdict({
-}), Messages.UnexpectedToken, "ILLEGAL")
+        }), Messages.UnexpectedToken, "ILLEGAL")
     return jsdict({
-"type": Token.NumericLiteral,
-"value": parseInt("0x" + number, 16),
-"lineNumber": lineNumber,
-"lineStart": lineStart,
-"range": [start, index],
-})
+        "type": Token.NumericLiteral,
+        "value": parseInt("0x" + number, 16),
+        "lineNumber": lineNumber,
+        "lineStart": lineStart,
+        "range": [start, index],
+    })
 
 def scanOctalLiteral(start=None):
     global index
@@ -1000,17 +1032,18 @@ def scanOctalLiteral(start=None):
             break
         index += 1
         number += source[index - 1]
-    if isIdentifierStart((ord(source[index]) if index < len(source) else None)) or isDecimalDigit((ord(source[index]) if index < len(source) else None)):
+    if isIdentifierStart((ord(source[index]) if index < len(source) else None)) or isDecimalDigit(
+            (ord(source[index]) if index < len(source) else None)):
         throwError(jsdict({
-}), Messages.UnexpectedToken, "ILLEGAL")
+        }), Messages.UnexpectedToken, "ILLEGAL")
     return jsdict({
-"type": Token.NumericLiteral,
-"value": parseInt(number, 8),
-"octal": True,
-"lineNumber": lineNumber,
-"lineStart": lineStart,
-"range": [start, index],
-})
+        "type": Token.NumericLiteral,
+        "value": parseInt(number, 8),
+        "octal": True,
+        "lineNumber": lineNumber,
+        "lineStart": lineStart,
+        "range": [start, index],
+    })
 
 def scanNumericLiteral():
     global index
@@ -1018,7 +1051,8 @@ def scanNumericLiteral():
     start = None
     ch = None
     ch = source[index]
-    assert__py__(isDecimalDigit((ord(ch[0]) if 0 < len(ch) else None)) or (ch == "."), "Numeric literal must start with a decimal digit or a decimal point")
+    assert__py__(isDecimalDigit((ord(ch[0]) if 0 < len(ch) else None)) or (ch == "."),
+                 "Numeric literal must start with a decimal digit or a decimal point")
     start = index
     number = ""
     if ch != ".":
@@ -1034,7 +1068,7 @@ def scanNumericLiteral():
                 return scanOctalLiteral(start)
             if ch and isDecimalDigit((ord(ch[0]) if 0 < len(ch) else None)):
                 throwError(jsdict({
-}), Messages.UnexpectedToken, "ILLEGAL")
+                }), Messages.UnexpectedToken, "ILLEGAL")
         while isDecimalDigit((ord(source[index]) if index < len(source) else None)):
             index += 1
             number += source[index - 1]
@@ -1059,17 +1093,17 @@ def scanNumericLiteral():
                 number += source[index - 1]
         else:
             throwError(jsdict({
-}), Messages.UnexpectedToken, "ILLEGAL")
+            }), Messages.UnexpectedToken, "ILLEGAL")
     if isIdentifierStart((ord(source[index]) if index < len(source) else None)):
         throwError(jsdict({
-}), Messages.UnexpectedToken, "ILLEGAL")
+        }), Messages.UnexpectedToken, "ILLEGAL")
     return jsdict({
-"type": Token.NumericLiteral,
-"value": parseFloat(number),
-"lineNumber": lineNumber,
-"lineStart": lineStart,
-"range": [start, index],
-})
+        "type": Token.NumericLiteral,
+        "value": parseFloat(number),
+        "lineNumber": lineNumber,
+        "lineStart": lineStart,
+        "range": [start, index],
+    })
 
 def scanStringLiteral():
     global index, lineNumber
@@ -1153,15 +1187,15 @@ def scanStringLiteral():
             str += ch
     if quote != "":
         throwError(jsdict({
-}), Messages.UnexpectedToken, "ILLEGAL")
+        }), Messages.UnexpectedToken, "ILLEGAL")
     return jsdict({
-"type": Token.StringLiteral,
-"value": str,
-"octal": octal,
-"lineNumber": lineNumber,
-"lineStart": lineStart,
-"range": [start, index],
-})
+        "type": Token.StringLiteral,
+        "value": str,
+        "octal": octal,
+        "lineNumber": lineNumber,
+        "lineStart": lineStart,
+        "range": [start, index],
+    })
 
 def scanRegExp():
     global lookahead, index
@@ -1194,7 +1228,7 @@ def scanRegExp():
                 ch = source[index - 1]
                 if isLineTerminator((ord(ch[0]) if 0 < len(ch) else None)):
                     throwError(jsdict({
-}), Messages.UnterminatedRegExp)
+                    }), Messages.UnterminatedRegExp)
                 str += ch
             elif ch == "/":
                 terminated = True
@@ -1203,10 +1237,10 @@ def scanRegExp():
                 classMarker = True
             elif isLineTerminator((ord(ch[0]) if 0 < len(ch) else None)):
                 throwError(jsdict({
-}), Messages.UnterminatedRegExp)
+                }), Messages.UnterminatedRegExp)
     if not terminated:
         throwError(jsdict({
-}), Messages.UnterminatedRegExp)
+        }), Messages.UnterminatedRegExp)
     pattern = str[1:(1 + (len(str) - 2))]
     flags = ""
     while index < length:
@@ -1243,24 +1277,25 @@ def scanRegExp():
         value = RegExp(pattern, flags)
     except Exception as e:
         throwError(jsdict({
-}), Messages.InvalidRegExp)
+        }), Messages.InvalidRegExp)
     peek()
     if extra.tokenize:
         return jsdict({
-"type": Token.RegularExpression,
-"value": value,
-"lineNumber": lineNumber,
-"lineStart": lineStart,
-"range": [start, index],
-})
+            "type": Token.RegularExpression,
+            "value": value,
+            "lineNumber": lineNumber,
+            "lineStart": lineStart,
+            "range": [start, index],
+        })
     return jsdict({
-"literal": str,
-"value": value,
-"range": [start, index],
-})
+        "literal": str,
+        "value": value,
+        "range": [start, index],
+    })
 
 def isIdentifierName(token=None):
-    return (((token.type == Token.Identifier) or (token.type == Token.Keyword)) or (token.type == Token.BooleanLiteral)) or (token.type == Token.NullLiteral)
+    return (((token.type == Token.Identifier) or (token.type == Token.Keyword)) or (
+    token.type == Token.BooleanLiteral)) or (token.type == Token.NullLiteral)
 
 def advanceSlash():
     prevToken = None
@@ -1271,7 +1306,9 @@ def advanceSlash():
     if prevToken.type == "Punctuator":
         if prevToken.value == ")":
             checkToken = extra.tokens[extra.openParenToken - 1]
-            if (checkToken and (checkToken.type == "Keyword")) and ((((checkToken.value == "if") or (checkToken.value == "while")) or (checkToken.value == "for")) or (checkToken.value == "with")):
+            if (checkToken and (checkToken.type == "Keyword")) and (
+                (((checkToken.value == "if") or (checkToken.value == "while")) or (checkToken.value == "for")) or (
+                checkToken.value == "with")):
                 return scanRegExp()
             return scanPunctuator()
         if prevToken.value == "}":
@@ -1298,11 +1335,11 @@ def advance():
     skipComment()
     if index >= length:
         return jsdict({
-"type": Token.EOF,
-"lineNumber": lineNumber,
-"lineStart": lineStart,
-"range": [index, index],
-})
+            "type": Token.EOF,
+            "lineNumber": lineNumber,
+            "lineStart": lineStart,
+            "range": [index, index],
+        })
     ch = (ord(source[index]) if index < len(source) else None)
     if ((ch == 40) or (ch == 41)) or (ch == 58):
         return scanPunctuator()
@@ -1347,51 +1384,52 @@ def peek():
     lineStart = start
 
 SyntaxTreeDelegate = jsdict({
-"name": "SyntaxTree",
-"markStart": __temp__0,
-"markEnd": __temp__1,
-"markEndIf": __temp__2,
-"postProcess": __temp__3,
-"createArrayExpression": __temp__4,
-"createAssignmentExpression": __temp__5,
-"createBinaryExpression": __temp__6,
-"createBlockStatement": __temp__7,
-"createBreakStatement": __temp__8,
-"createCallExpression": __temp__9,
-"createCatchClause": __temp__10,
-"createConditionalExpression": __temp__11,
-"createContinueStatement": __temp__12,
-"createDebuggerStatement": __temp__13,
-"createDoWhileStatement": __temp__14,
-"createEmptyStatement": __temp__15,
-"createExpressionStatement": __temp__16,
-"createForStatement": __temp__17,
-"createForInStatement": __temp__18,
-"createFunctionDeclaration": __temp__19,
-"createFunctionExpression": __temp__20,
-"createIdentifier": __temp__21,
-"createIfStatement": __temp__22,
-"createLabeledStatement": __temp__23,
-"createLiteral": __temp__24,
-"createMemberExpression": __temp__25,
-"createNewExpression": __temp__26,
-"createObjectExpression": __temp__27,
-"createPostfixExpression": __temp__28,
-"createProgram": __temp__29,
-"createProperty": __temp__30,
-"createReturnStatement": __temp__31,
-"createSequenceExpression": __temp__32,
-"createSwitchCase": __temp__33,
-"createSwitchStatement": __temp__34,
-"createThisExpression": __temp__35,
-"createThrowStatement": __temp__36,
-"createTryStatement": __temp__37,
-"createUnaryExpression": __temp__38,
-"createVariableDeclaration": __temp__39,
-"createVariableDeclarator": __temp__40,
-"createWhileStatement": __temp__41,
-"createWithStatement": __temp__42,
+    "name": "SyntaxTree",
+    "markStart": __temp__0,
+    "markEnd": __temp__1,
+    "markEndIf": __temp__2,
+    "postProcess": __temp__3,
+    "createArrayExpression": __temp__4,
+    "createAssignmentExpression": __temp__5,
+    "createBinaryExpression": __temp__6,
+    "createBlockStatement": __temp__7,
+    "createBreakStatement": __temp__8,
+    "createCallExpression": __temp__9,
+    "createCatchClause": __temp__10,
+    "createConditionalExpression": __temp__11,
+    "createContinueStatement": __temp__12,
+    "createDebuggerStatement": __temp__13,
+    "createDoWhileStatement": __temp__14,
+    "createEmptyStatement": __temp__15,
+    "createExpressionStatement": __temp__16,
+    "createForStatement": __temp__17,
+    "createForInStatement": __temp__18,
+    "createFunctionDeclaration": __temp__19,
+    "createFunctionExpression": __temp__20,
+    "createIdentifier": __temp__21,
+    "createIfStatement": __temp__22,
+    "createLabeledStatement": __temp__23,
+    "createLiteral": __temp__24,
+    "createMemberExpression": __temp__25,
+    "createNewExpression": __temp__26,
+    "createObjectExpression": __temp__27,
+    "createPostfixExpression": __temp__28,
+    "createProgram": __temp__29,
+    "createProperty": __temp__30,
+    "createReturnStatement": __temp__31,
+    "createSequenceExpression": __temp__32,
+    "createSwitchCase": __temp__33,
+    "createSwitchStatement": __temp__34,
+    "createThisExpression": __temp__35,
+    "createThrowStatement": __temp__36,
+    "createTryStatement": __temp__37,
+    "createUnaryExpression": __temp__38,
+    "createVariableDeclaration": __temp__39,
+    "createVariableDeclarator": __temp__40,
+    "createWhileStatement": __temp__41,
+    "createWithStatement": __temp__42,
 })
+
 def peekLineTerminator():
     global index, lineNumber, lineStart
     pos = None
@@ -1412,7 +1450,7 @@ def throwError(token=None, messageFormat=None, a=None):
     def __temp__43(whole=None, index=None):
         assert__py__(index < len(args), "Message reference must be in range")
         return args[index]
-    
+
     error = None
     args = Array.prototype.slice.call(arguments, 2)
     msg = messageFormat.replace(RegExp(r'%(\d)'), __temp__43)
@@ -1436,7 +1474,7 @@ def throwErrorTolerant():
         if extra.errors:
             extra.errors.append(e)
         else:
-            raise 
+            raise
 
 def throwUnexpected(token=None):
     if token.type == Token.EOF:
@@ -1452,7 +1490,7 @@ def throwUnexpected(token=None):
             throwError(token, Messages.UnexpectedReserved)
         elif strict and isStrictModeReservedWord(token.value):
             throwErrorTolerant(token, Messages.StrictReservedWord)
-            return 
+            return
         throwError(token, Messages.UnexpectedToken, token.value)
     throwError(token, Messages.UnexpectedToken, token.value)
 
@@ -1477,20 +1515,22 @@ def matchAssign():
     if lookahead.type != Token.Punctuator:
         return False
     op = lookahead.value
-    return (((((((((((op == "=") or (op == "*=")) or (op == "/=")) or (op == "%=")) or (op == "+=")) or (op == "-=")) or (op == "<<=")) or (op == ">>=")) or (op == ">>>=")) or (op == "&=")) or (op == "^=")) or (op == "|=")
+    return (((((((((((op == "=") or (op == "*=")) or (op == "/=")) or (op == "%=")) or (op == "+=")) or (
+    op == "-=")) or (op == "<<=")) or (op == ">>=")) or (op == ">>>=")) or (op == "&=")) or (op == "^=")) or (
+           op == "|=")
 
 def consumeSemicolon():
     line = None
     if (ord(source[index]) if index < len(source) else None) == 59:
         lex()
-        return 
+        return
     line = lineNumber
     skipComment()
     if lineNumber != line:
-        return 
+        return
     if match(";"):
         lex()
-        return 
+        return
     if (lookahead.type != Token.EOF) and (not match("}")):
         throwUnexpected(lookahead)
 
@@ -1583,7 +1623,7 @@ def parseObjectInitialiser():
     key = None
     kind = None
     map = jsdict({
-})
+    })
     toString = str
     expect("{")
     while not match("}"):
@@ -1592,23 +1632,24 @@ def parseObjectInitialiser():
             name = property.key.name
         else:
             name = toString(property.key.value)
-        kind = (PropertyKind.Data if property.kind == "init" else (PropertyKind.Get if property.kind == "get" else PropertyKind.Set))
+        kind = (PropertyKind.Data if property.kind == "init" else (
+        PropertyKind.Get if property.kind == "get" else PropertyKind.Set))
         key = "$" + name
         if key in map:
             if map[key] == PropertyKind.Data:
                 if strict and (kind == PropertyKind.Data):
                     throwErrorTolerant(jsdict({
-}), Messages.StrictDuplicateProperty)
+                    }), Messages.StrictDuplicateProperty)
                 elif kind != PropertyKind.Data:
                     throwErrorTolerant(jsdict({
-}), Messages.AccessorDataProperty)
+                    }), Messages.AccessorDataProperty)
             else:
                 if kind == PropertyKind.Data:
                     throwErrorTolerant(jsdict({
-}), Messages.AccessorDataProperty)
+                    }), Messages.AccessorDataProperty)
                 elif map[key] & kind:
                     throwErrorTolerant(jsdict({
-}), Messages.AccessorGetSet)
+                    }), Messages.AccessorGetSet)
             map[key] |= kind
         else:
             map[key] = kind
@@ -1752,10 +1793,10 @@ def parsePostfixExpression():
         if (match("++") or match("--")) and (not peekLineTerminator()):
             if (strict and (expr.type == Syntax.Identifier)) and isRestrictedWord(expr.name):
                 throwErrorTolerant(jsdict({
-}), Messages.StrictLHSPostfix)
+                }), Messages.StrictLHSPostfix)
             if not isLeftHandSide(expr):
                 throwError(jsdict({
-}), Messages.InvalidLHSInAssignment)
+                }), Messages.InvalidLHSInAssignment)
             token = lex()
             expr = delegate.createPostfixExpression(token.value, expr)
     return delegate.markEndIf(expr)
@@ -1771,10 +1812,10 @@ def parseUnaryExpression():
         expr = parseUnaryExpression()
         if (strict and (expr.type == Syntax.Identifier)) and isRestrictedWord(expr.name):
             throwErrorTolerant(jsdict({
-}), Messages.StrictLHSPrefix)
+            }), Messages.StrictLHSPrefix)
         if not isLeftHandSide(expr):
             throwError(jsdict({
-}), Messages.InvalidLHSInAssignment)
+            }), Messages.InvalidLHSInAssignment)
         expr = delegate.createUnaryExpression(token.value, expr)
     elif ((match("+") or match("-")) or match("~")) or match("!"):
         token = lex()
@@ -1786,7 +1827,7 @@ def parseUnaryExpression():
         expr = delegate.createUnaryExpression(token.value, expr)
         if (strict and (expr.operator == "delete")) and (expr.argument.type == Syntax.Identifier):
             throwErrorTolerant(jsdict({
-}), Messages.StrictDelete)
+            }), Messages.StrictDelete)
     else:
         expr = parsePostfixExpression()
     return delegate.markEndIf(expr)
@@ -1814,7 +1855,8 @@ def binaryPrecedence(token=None, allowIn=None):
         elif (token.value == "!==") or ((token.value == "===") or ((token.value == "!=") or (token.value == "=="))):
             prec = 6
             break
-        elif (token.value == "instanceof") or ((token.value == ">=") or ((token.value == "<=") or ((token.value == ">") or (token.value == "<")))):
+        elif (token.value == "instanceof") or (
+            (token.value == ">=") or ((token.value == "<=") or ((token.value == ">") or (token.value == "<")))):
             prec = 7
             break
         elif token.value == "in":
@@ -1911,7 +1953,7 @@ def parseConditionalExpression():
         expr = delegate.markEnd(delegate.createConditionalExpression(expr, consequent, alternate))
     else:
         delegate.markEnd(jsdict({
-}))
+        }))
     return expr
 
 def parseAssignmentExpression():
@@ -1926,7 +1968,7 @@ def parseAssignmentExpression():
     if matchAssign():
         if not isLeftHandSide(left):
             throwError(jsdict({
-}), Messages.InvalidLHSInAssignment)
+            }), Messages.InvalidLHSInAssignment)
         if (strict and (left.type == Syntax.Identifier)) and isRestrictedWord(left.name):
             throwErrorTolerant(token, Messages.StrictLHSAssignment)
         token = lex()
@@ -1985,7 +2027,7 @@ def parseVariableDeclaration(kind=None):
     id = parseVariableIdentifier()
     if strict and isRestrictedWord(id.name):
         throwErrorTolerant(jsdict({
-}), Messages.StrictVarName)
+        }), Messages.StrictVarName)
     if kind == "const":
         expect("=")
         init = parseAssignmentExpression()
@@ -2117,7 +2159,7 @@ def parseForStatement():
             if matchKeyword("in"):
                 if not isLeftHandSide(init):
                     throwError(jsdict({
-}), Messages.InvalidLHSInForIn)
+                    }), Messages.InvalidLHSInForIn)
                 lex()
                 left = init
                 right = parseExpression()
@@ -2135,7 +2177,8 @@ def parseForStatement():
     state.inIteration = True
     body = parseStatement()
     state.inIteration = oldInIteration
-    return (delegate.createForStatement(init, test, update, body) if ('undefined' if not 'left' in locals() else typeof(left)) == "undefined" else delegate.createForInStatement(left, right, body))
+    return (delegate.createForStatement(init, test, update, body) if ('undefined' if not 'left' in locals() else typeof(
+        left)) == "undefined" else delegate.createForInStatement(left, right, body))
 
 def parseContinueStatement():
     label = None
@@ -2145,23 +2188,23 @@ def parseContinueStatement():
         lex()
         if not state.inIteration:
             throwError(jsdict({
-}), Messages.IllegalContinue)
+            }), Messages.IllegalContinue)
         return delegate.createContinueStatement(None)
     if peekLineTerminator():
         if not state.inIteration:
             throwError(jsdict({
-}), Messages.IllegalContinue)
+            }), Messages.IllegalContinue)
         return delegate.createContinueStatement(None)
     if lookahead.type == Token.Identifier:
         label = parseVariableIdentifier()
         key = "$" + label.name
         if not (key in state.labelSet):
             throwError(jsdict({
-}), Messages.UnknownLabel, label.name)
+            }), Messages.UnknownLabel, label.name)
     consumeSemicolon()
     if (label == None) and (not state.inIteration):
         throwError(jsdict({
-}), Messages.IllegalContinue)
+        }), Messages.IllegalContinue)
     return delegate.createContinueStatement(label)
 
 def parseBreakStatement():
@@ -2172,23 +2215,23 @@ def parseBreakStatement():
         lex()
         if not (state.inIteration or state.inSwitch):
             throwError(jsdict({
-}), Messages.IllegalBreak)
+            }), Messages.IllegalBreak)
         return delegate.createBreakStatement(None)
     if peekLineTerminator():
         if not (state.inIteration or state.inSwitch):
             throwError(jsdict({
-}), Messages.IllegalBreak)
+            }), Messages.IllegalBreak)
         return delegate.createBreakStatement(None)
     if lookahead.type == Token.Identifier:
         label = parseVariableIdentifier()
         key = "$" + label.name
         if not (key in state.labelSet):
             throwError(jsdict({
-}), Messages.UnknownLabel, label.name)
+            }), Messages.UnknownLabel, label.name)
     consumeSemicolon()
     if (label == None) and (not (state.inIteration or state.inSwitch)):
         throwError(jsdict({
-}), Messages.IllegalBreak)
+        }), Messages.IllegalBreak)
     return delegate.createBreakStatement(label)
 
 def parseReturnStatement():
@@ -2196,7 +2239,7 @@ def parseReturnStatement():
     expectKeyword("return")
     if not state.inFunctionBody:
         throwErrorTolerant(jsdict({
-}), Messages.IllegalReturn)
+        }), Messages.IllegalReturn)
     if (ord(source[index]) if index < len(source) else None) == 32:
         if isIdentifierStart((ord(source[index + 1]) if (index + 1) < len(source) else None)):
             argument = parseExpression()
@@ -2215,7 +2258,7 @@ def parseWithStatement():
     body = None
     if strict:
         throwErrorTolerant(jsdict({
-}), Messages.StrictModeWith)
+        }), Messages.StrictModeWith)
     expectKeyword("with")
     expect("(")
     object = parseExpression()
@@ -2268,7 +2311,7 @@ def parseSwitchStatement():
         if clause.test == None:
             if defaultFound:
                 throwError(jsdict({
-}), Messages.MultipleDefaultsInSwitch)
+                }), Messages.MultipleDefaultsInSwitch)
             defaultFound = True
         cases.append(clause)
     state.inSwitch = oldInSwitch
@@ -2280,7 +2323,7 @@ def parseThrowStatement():
     expectKeyword("throw")
     if peekLineTerminator():
         throwError(jsdict({
-}), Messages.NewlineAfterThrow)
+        }), Messages.NewlineAfterThrow)
     argument = parseExpression()
     consumeSemicolon()
     return delegate.createThrowStatement(argument)
@@ -2297,7 +2340,7 @@ def parseCatchClause():
     param = parseVariableIdentifier()
     if strict and isRestrictedWord(param.name):
         throwErrorTolerant(jsdict({
-}), Messages.StrictCatchVariable)
+        }), Messages.StrictCatchVariable)
     expect(")")
     body = parseBlock()
     return delegate.markEnd(delegate.createCatchClause(param, body))
@@ -2315,7 +2358,7 @@ def parseTryStatement():
         finalizer = parseBlock()
     if (len(handlers) == 0) and (not finalizer):
         throwError(jsdict({
-}), Messages.NoCatchOrFinally)
+        }), Messages.NoCatchOrFinally)
     return delegate.createTryStatement(block, [], handlers, finalizer)
 
 def parseDebuggerStatement():
@@ -2382,7 +2425,7 @@ def parseStatement():
         key = "$" + expr.name
         if key in state.labelSet:
             throwError(jsdict({
-}), Messages.Redeclaration, "Label", expr.name)
+            }), Messages.Redeclaration, "Label", expr.name)
         state.labelSet[key] = True
         labeledBody = parseStatement()
         del state.labelSet[key]
@@ -2425,7 +2468,7 @@ def parseFunctionSourceElements():
     oldInSwitch = state.inSwitch
     oldInFunctionBody = state.inFunctionBody
     state.labelSet = jsdict({
-})
+    })
     state.inIteration = False
     state.inSwitch = False
     state.inFunctionBody = True
@@ -2454,7 +2497,7 @@ def parseParams(firstRestricted=None):
     expect("(")
     if not match(")"):
         paramSet = jsdict({
-})
+        })
         while index < length:
             token = lookahead
             param = parseVariableIdentifier()
@@ -2483,11 +2526,11 @@ def parseParams(firstRestricted=None):
             expect(",")
     expect(")")
     return jsdict({
-"params": params,
-"stricted": stricted,
-"firstRestricted": firstRestricted,
-"message": message,
-})
+        "params": params,
+        "stricted": stricted,
+        "firstRestricted": firstRestricted,
+        "message": message,
+    })
 
 def parseFunctionDeclaration():
     global strict
@@ -2633,25 +2676,25 @@ def collectToken():
     skipComment()
     start = index
     loc = jsdict({
-"start": jsdict({
-"line": lineNumber,
-"column": index - lineStart,
-}),
-})
+        "start": jsdict({
+            "line": lineNumber,
+            "column": index - lineStart,
+        }),
+    })
     token = extra.advance()
     loc.end = jsdict({
-"line": lineNumber,
-"column": index - lineStart,
-})
+        "line": lineNumber,
+        "column": index - lineStart,
+    })
     if token.type != Token.EOF:
         range = [token.range[0], token.range[1]]
         value = source[token.range[0]:token.range[1]]
         extra.tokens.append(jsdict({
-"type": TokenName[token.type],
-"value": value,
-"range": range,
-"loc": loc,
-}))
+            "type": TokenName[token.type],
+            "value": value,
+            "range": range,
+            "loc": loc,
+        }))
     return token
 
 def collectRegex():
@@ -2662,16 +2705,16 @@ def collectRegex():
     skipComment()
     pos = index
     loc = jsdict({
-"start": jsdict({
-"line": lineNumber,
-"column": index - lineStart,
-}),
-})
+        "start": jsdict({
+            "line": lineNumber,
+            "column": index - lineStart,
+        }),
+    })
     regex = extra.scanRegExp()
     loc.end = jsdict({
-"line": lineNumber,
-"column": index - lineStart,
-})
+        "line": lineNumber,
+        "column": index - lineStart,
+    })
     if not extra.tokenize:
         if len(extra.tokens) > 0:
             token = extra.tokens[len(extra.tokens) - 1]
@@ -2679,11 +2722,11 @@ def collectRegex():
                 if (token.value == "/") or (token.value == "/="):
                     extra.tokens.pop()
         extra.tokens.append(jsdict({
-"type": "RegularExpression",
-"value": regex.literal,
-"range": [pos, index],
-"loc": loc,
-}))
+            "type": "RegularExpression",
+            "value": regex.literal,
+            "range": [pos, index],
+            "loc": loc,
+        }))
     return regex
 
 def filterTokenLocation():
@@ -2697,9 +2740,9 @@ def filterTokenLocation():
             break
         entry = extra.tokens[i]
         token = jsdict({
-"type": entry.type,
-"value": entry.value,
-})
+            "type": entry.type,
+            "value": entry.value,
+        })
         if extra.range:
             token.range = entry.range
         if extra.loc:
@@ -2711,28 +2754,28 @@ def filterTokenLocation():
 class LocationMarker(object):
     def __init__(self=None):
         self.marker = [index, lineNumber, index - lineStart, 0, 0, 0]
-    
+
     def end(self=None):
         self.marker[3] = index
         self.marker[4] = lineNumber
         self.marker[5] = index - lineStart
-    
+
     def apply(self=None, node=None):
         if extra.range:
             node.range = [self.marker[0], self.marker[3]]
         if extra.loc:
             node.loc = jsdict({
-"start": jsdict({
-"line": self.marker[1],
-"column": self.marker[2],
-}),
-"end": jsdict({
-"line": self.marker[4],
-"column": self.marker[5],
-}),
-})
+                "start": jsdict({
+                    "line": self.marker[1],
+                    "column": self.marker[2],
+                }),
+                "end": jsdict({
+                    "line": self.marker[4],
+                    "column": self.marker[5],
+                }),
+            })
         node = delegate.postProcess(node)
-    
+
 def createLocationMarker():
     if (not extra.loc) and (not extra.range):
         return None
@@ -2770,18 +2813,18 @@ def tokenize(code, **options):
     length = len(source)
     lookahead = None
     state = jsdict({
-"allowIn": True,
-"labelSet": jsdict({
-}),
-"inFunctionBody": False,
-"inIteration": False,
-"inSwitch": False,
-"lastCommentStart": -1,
-})
+        "allowIn": True,
+        "labelSet": jsdict({
+        }),
+        "inFunctionBody": False,
+        "inIteration": False,
+        "inSwitch": False,
+        "lastCommentStart": -1,
+    })
     extra = jsdict({
-})
+    })
     options = options or jsdict({
-})
+    })
     options.tokens = True
     extra.tokens = []
     extra.tokenize = True
@@ -2812,7 +2855,7 @@ def tokenize(code, **options):
                     extra.errors.append(lexError)
                     break
                 else:
-                    raise 
+                    raise
         filterTokenLocation()
         tokens = extra.tokens
         if ('undefined' if not ('comments' in extra) else typeof(extra.comments)) != "undefined":
@@ -2820,11 +2863,11 @@ def tokenize(code, **options):
         if ('undefined' if not ('errors' in extra) else typeof(extra.errors)) != "undefined":
             tokens.errors = extra.errors
     except Exception as e:
-        raise 
+        raise
     finally:
         unpatch()
         extra = jsdict({
-})
+        })
     return tokens
 
 def parse(code, **options):
@@ -2843,19 +2886,20 @@ def parse(code, **options):
     length = len(source)
     lookahead = None
     state = jsdict({
-"allowIn": True,
-"labelSet": jsdict({
-}),
-"inFunctionBody": False,
-"inIteration": False,
-"inSwitch": False,
-"lastCommentStart": -1,
-"markerStack": [],
-})
+        "allowIn": True,
+        "labelSet": jsdict({
+        }),
+        "inFunctionBody": False,
+        "inIteration": False,
+        "inSwitch": False,
+        "lastCommentStart": -1,
+        "markerStack": [],
+    })
     extra = jsdict({
-})
+    })
     if ('undefined' if not 'options' in locals() else typeof(options)) != "undefined":
-        extra.range = (('undefined' if not ('range' in options) else typeof(options.range)) == "boolean") and options.range
+        extra.range = (('undefined' if not ('range' in options) else typeof(
+            options.range)) == "boolean") and options.range
         extra.loc = (('undefined' if not ('loc' in options) else typeof(options.loc)) == "boolean") and options.loc
         if (extra.loc and (options.source != None)) and (options.source != undefined):
             extra.source = toString(options.source)
@@ -2863,7 +2907,8 @@ def parse(code, **options):
             extra.tokens = []
         if (('undefined' if not ('comment' in options) else typeof(options.comment)) == "boolean") and options.comment:
             extra.comments = []
-        if (('undefined' if not ('tolerant' in options) else typeof(options.tolerant)) == "boolean") and options.tolerant:
+        if (('undefined' if not ('tolerant' in options) else typeof(
+                options.tolerant)) == "boolean") and options.tolerant:
             extra.errors = []
     if length > 0:
         if (typeof(source[0])) == "undefined":
@@ -2880,12 +2925,11 @@ def parse(code, **options):
         if ('undefined' if not ('errors' in extra) else typeof(extra.errors)) != "undefined":
             program.errors = extra.errors
     except Exception as e:
-        raise 
+        raise
     finally:
         unpatch()
         extra = jsdict({
-})
+        })
     return program
-
 
 parse('var = 490 \n a=4;')

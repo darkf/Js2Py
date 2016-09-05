@@ -63,7 +63,6 @@
 """
 
 __author__ = 'Piotr Dabkowski'
-__all__  = ['EvalJs', 'translate_js', 'import_js', 'eval_js', 'parse_js', 'translate_file', 'run_file']
+__all__ = ['EvalJs', 'translate_js', 'import_js', 'eval_js', 'parse_js', 'translate_file', 'run_file']
 from .evaljs import *
 from .translators import parse as parse_js
-

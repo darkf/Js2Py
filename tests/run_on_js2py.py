@@ -1,11 +1,12 @@
 from __future__ import print_function
+
 import sys
+
 sys.path.insert(0, "..")
 import js2py
 from js2py.base import PyJsException, PyExceptionToJs
 import os, sys, re, traceback, threading, ctypes, time, six
 from distutils.version import LooseVersion
-
 
 def load(path):
     with open(path, 'r') as f:
@@ -21,7 +22,7 @@ def terminate_thread(thread):
 
     exc = ctypes.py_object(SystemExit)
     res = ctypes.pythonapi.PyThreadState_SetAsyncExc(
-        ctypes.c_long(thread.ident), exc)
+            ctypes.c_long(thread.ident), exc)
     if res == 0:
         raise ValueError("nonexistent thread id")
     elif res > 1:
@@ -30,12 +31,10 @@ def terminate_thread(thread):
         ctypes.pythonapi.PyThreadState_SetAsyncExc(thread.ident, None)
         raise SystemError("PyThreadState_SetAsyncExc failed")
 
-
-TEST_TIMEOUT =  10
+TEST_TIMEOUT = 10
 INCLUDE_PATH = 'includes/'
 TEST_PATH = 'test_cases/'
 INIT = load(os.path.join(INCLUDE_PATH, 'init.js'))
-
 
 class TestCase:
     description = None
@@ -51,7 +50,7 @@ class TestCase:
 
         self.path = path
         self.full_path = os.path.abspath(self.path)
-        self.clear_name = '/'.join(self.full_path.split(os.sep)[-3-('prototype' in self.full_path):-1])
+        self.clear_name = '/'.join(self.full_path.split(os.sep)[-3 - ('prototype' in self.full_path):-1])
         self.raw = load(self.path)
 
         self._parse_test_info()
@@ -84,7 +83,7 @@ class TestCase:
                     setattr(self, category, content)
                 start_index = line.index(':')
                 category = line[:start_index]
-                category_content = line[start_index+1:].lstrip(' >\n')
+                category_content = line[start_index + 1:].lstrip(' >\n')
 
     def _content_split(self, content):
         res = []
@@ -130,7 +129,7 @@ class TestCase:
 
         except SyntaxError as e:
             full_error = traceback.format_exc()
-            if self.negative=='SyntaxError':
+            if self.negative == 'SyntaxError':
                 passed = True
             else:
                 passed = False
@@ -160,10 +159,8 @@ class TestCase:
         return passed, label, reason, full_error
 
     def print_result(self):
-        print(self.clear_name, self.es5id, self.label, self.reason, '\nFile "%s", line 1'%self.full_path if self.label=='CRASHED' else '')
-
-
-
+        print(self.clear_name, self.es5id, self.label, self.reason,
+              '\nFile "%s", line 1' % self.full_path if self.label == 'CRASHED' else '')
 
 def list_path(path, folders=False):
     res = []
@@ -195,7 +192,7 @@ def test_all(path):
             thread = threading.Thread(target=test.run)
             timeout_time = time.time() + TEST_TIMEOUT
             thread.start()
-            while thread.is_alive() and time.time()<timeout_time:
+            while thread.is_alive() and time.time() < timeout_time:
                 time.sleep(0.001)
             if thread.is_alive():
                 terminate_thread(thread)
@@ -211,8 +208,4 @@ def test_all(path):
     for folder in folders:
         test_all(folder)
 
-
-
 test_all(TEST_PATH)
-
-

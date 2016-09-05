@@ -6,6 +6,6 @@ BooleanPrototype.define_own_property('constructor', {'value': Boolean,
                                                      'configurable': True})
 
 Boolean.define_own_property('prototype', {'value': BooleanPrototype,
-                                         'enumerable': False,
-                                         'writable': False,
-                                         'configurable': False})
+                                          'enumerable': False,
+                                          'writable': False,
+                                          'configurable': False})

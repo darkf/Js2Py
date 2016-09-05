@@ -23,13 +23,13 @@ for constant, value in CONSTANTS.items():
 class MathFunctions:
     def abs(x):
         a = x.to_number().value
-        if a!=a: # it must be a nan
+        if a != a:  # it must be a nan
             return NaN
         return abs(a)
 
     def acos(x):
         a = x.to_number().value
-        if a!=a: # it must be a nan
+        if a != a:  # it must be a nan
             return NaN
         try:
             return math.acos(a)
@@ -38,7 +38,7 @@ class MathFunctions:
 
     def asin(x):
         a = x.to_number().value
-        if a!=a: # it must be a nan
+        if a != a:  # it must be a nan
             return NaN
         try:
             return math.asin(a)
@@ -47,56 +47,56 @@ class MathFunctions:
 
     def atan(x):
         a = x.to_number().value
-        if a!=a: # it must be a nan
+        if a != a:  # it must be a nan
             return NaN
         return math.atan(a)
 
     def atan2(y, x):
         a = x.to_number().value
         b = y.to_number().value
-        if a!=a or b!=b: # it must be a nan
+        if a != a or b != b:  # it must be a nan
             return NaN
         return math.atan2(b, a)
 
     def ceil(x):
         a = x.to_number().value
-        if a!=a: # it must be a nan
+        if a != a:  # it must be a nan
             return NaN
         return math.ceil(a)
 
     def floor(x):
         a = x.to_number().value
-        if a!=a: # it must be a nan
+        if a != a:  # it must be a nan
             return NaN
         return math.floor(a)
 
     def round(x):
         a = x.to_number().value
-        if a!=a: # it must be a nan
+        if a != a:  # it must be a nan
             return NaN
         return round(a)
 
     def sin(x):
         a = x.to_number().value
-        if a!=a: # it must be a nan
+        if a != a:  # it must be a nan
             return NaN
         return math.sin(a)
 
     def cos(x):
         a = x.to_number().value
-        if a!=a: # it must be a nan
+        if a != a:  # it must be a nan
             return NaN
-        return  math.cos(a)
+        return math.cos(a)
 
     def tan(x):
         a = x.to_number().value
-        if a!=a: # it must be a nan
+        if a != a:  # it must be a nan
             return NaN
         return math.tan(a)
 
     def log(x):
         a = x.to_number().value
-        if a!=a: # it must be a nan
+        if a != a:  # it must be a nan
             return NaN
         try:
             return math.log(a)
@@ -105,26 +105,26 @@ class MathFunctions:
 
     def exp(x):
         a = x.to_number().value
-        if a!=a: # it must be a nan
+        if a != a:  # it must be a nan
             return NaN
         return math.exp(a)
 
     def pow(x, y):
         a = x.to_number().value
         b = y.to_number().value
-        if a!=a or b!=b: # it must be a nan
+        if a != a or b != b:  # it must be a nan
             return NaN
         try:
-            return a**b
+            return a ** b
         except:
             return NaN
 
     def sqrt(x):
         a = x.to_number().value
-        if a!=a: # it must be a nan
+        if a != a:  # it must be a nan
             return NaN
         try:
-            return a**0.5
+            return a ** 0.5
         except:
             return NaN
 
@@ -132,7 +132,7 @@ class MathFunctions:
         if not len(arguments):
             return -Infinity
         lis = tuple(e.to_number().value for e in arguments.to_list())
-        if any(e!=e for e in lis): # we dont want NaNs
+        if any(e != e for e in lis):  # we dont want NaNs
             return NaN
         return min(*lis)
 
@@ -140,12 +140,11 @@ class MathFunctions:
         if not len(arguments):
             return -Infinity
         lis = tuple(e.to_number().value for e in arguments.to_list())
-        if any(e!=e for e in lis): # we dont want NaNs
+        if any(e != e for e in lis):  # we dont want NaNs
             return NaN
         return max(*lis)
 
     def random():
         return random.random()
-
 
 fill_prototype(Math, MathFunctions, default_attrs)

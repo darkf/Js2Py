@@ -19,14 +19,14 @@ __all__ = ['Js', 'PyJsComma', 'PyJsStrictEq', 'PyJsStrictNeq',
            'JsToPyException', 'JS_BUILTINS', 'appengine', 'set_global_object',
            'JsRegExp', 'PyJsException', 'PyExceptionToJs', 'JsToPyException', 'PyJsSwitchException']
 
-
 # these were defined in base.py
-builtins = ('true','false','null','undefined','Infinity',
+builtins = ('true', 'false', 'null', 'undefined', 'Infinity',
             'NaN', 'console', 'String', 'Number', 'Boolean', 'RegExp',
             'Math', 'Date', 'Object', 'Function', 'Array',
             'parseFloat', 'parseInt', 'isFinite', 'isNaN')
-            #Array, Function, JSON,   Error is done later :)
-            # also some built in functions like eval...
+
+# Array, Function, JSON,   Error is done later :)
+# also some built in functions like eval...
 
 def set_global_object(obj):
     obj.IS_CHILD_SCOPE = False
@@ -38,14 +38,11 @@ def set_global_object(obj):
     obj.register('this')
     obj.put('this', this)
 
-
-
 scope = dict(zip(builtins, [globals()[e] for e in builtins]))
 # Now add errors:
 for name, error in ERRORS.items():
     scope[name] = error
-#add eval
+# add eval
 scope['eval'] = Eval
 scope['JSON'] = JSON
-JS_BUILTINS = {k:v for k,v in scope.items()}
-
+JS_BUILTINS = {k: v for k, v in scope.items()}

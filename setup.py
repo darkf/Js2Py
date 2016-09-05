@@ -23,14 +23,14 @@ More examples at: https://github.com/PiotrDabkowski/Js2Py
 # python setup.py register -r pypi
 # python setup.py sdist upload -r pypi
 setup(
-    name='Js2Py',
-    version='0.39',
-    packages=['js2py', 'js2py.utils', 'js2py.prototypes', 'js2py.translators', 'js2py.constructors', 'js2py.host'],
-    url='https://github.com/PiotrDabkowski/Js2Py',
-    install_requires = ['tzlocal>=1.2', 'six>=1.10'],
-    license='MIT',
-    author='Piotr Dabkowski',
-    author_email='piotr.dabkowski@balliol.ox.ac.uk',
-    description='JavaScript to Python Translator & JavaScript interpreter written in 100% pure Python.',
-    long_description=long_desc
+        name='Js2Py',
+        version='0.39',
+        packages=['js2py', 'js2py.utils', 'js2py.prototypes', 'js2py.translators', 'js2py.constructors', 'js2py.host'],
+        url='https://github.com/PiotrDabkowski/Js2Py',
+        install_requires=['tzlocal>=1.2', 'six>=1.10'],
+        license='MIT',
+        author='Piotr Dabkowski',
+        author_email='piotr.dabkowski@balliol.ox.ac.uk',
+        description='JavaScript to Python Translator & JavaScript interpreter written in 100% pure Python.',
+        long_description=long_desc
 )

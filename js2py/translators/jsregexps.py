@@ -2,7 +2,7 @@ from pyjsparserdata import *
 
 REGEXP_SPECIAL_SINGLE = {'\\', '^', '$', '*', '+', '?', '.'}
 
-NOT_PATTERN_CHARS = {'^', '$', '\\', '.', '*', '+', '?', '(', ')', '[', ']',  '|'}  # what about '{', '}',  ???
+NOT_PATTERN_CHARS = {'^', '$', '\\', '.', '*', '+', '?', '(', ')', '[', ']', '|'}  # what about '{', '}',  ???
 
 CHAR_CLASS_ESCAPE = {'d', 'D', 's', 'S', 'w', 'W'}
 CONTROL_ESCAPE_CHARS = {'f', 'n', 'r', 't', 'v'}
@@ -13,7 +13,6 @@ CONTROL_LETTERS = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', '
 def SpecialChar(char):
     return {'type': 'SpecialChar',
             'content': char}
-
 
 def isPatternCharacter(char):
     return char not in NOT_PATTERN_CHARS
@@ -26,7 +25,6 @@ class JsRegExpParser:
         self.length = len(source)
         self.lineNumber = 0
         self.lineStart = 0
-
 
     def parsePattern(self):
         '''Perform sctring escape - for regexp literals'''
@@ -45,25 +43,25 @@ class JsRegExpParser:
                 'contents': alternatives}
 
     def isEOF(self):
-        if self.index>=self.length:
+        if self.index >= self.length:
             return True
         return False
 
     def expect_character(self, character):
-        if self.source[self.index]!=character:
+        if self.source[self.index] != character:
             self.throwUnexpected(character)
         self.index += 1
 
     def parseAlternative(self):
         contents = []
-        while not self.isEOF() and self.source[self.index]!='|':
+        while not self.isEOF() and self.source[self.index] != '|':
             contents.append(self.parseTerm())
         return {'type': 'Alternative',
                 'contents': contents}
 
     def follows(self, chars):
         for i, c in enumerate(chars):
-            if self.index+i>=self.length or self.source[self.index+i] != c:
+            if self.index + i >= self.length or self.source[self.index + i] != c:
                 return False
         return True
 
@@ -74,7 +72,6 @@ class JsRegExpParser:
         else:
             return {'type': 'Term',
                     'contents': self.parseAtom()}  # quantifier will go inside atom!
-
 
     def parseAssertion(self):
         if self.follows('$'):
@@ -110,7 +107,7 @@ class JsRegExpParser:
 
     def parseAtom(self):
         if self.follows('.'):
-            content =  SpecialChar('.')
+            content = SpecialChar('.')
             self.index += 1
         elif self.follows('\\'):
             self.index += 1
@@ -161,7 +158,7 @@ class JsRegExpParser:
         elif self.follows('*'):
             content = '*'
             self.index += 1
-        elif self.follows('{'): # try matching otherwise return None and restore the state
+        elif self.follows('{'):  # try matching otherwise return None and restore the state
             i = self.index
             self.index += 1
             digs1 = self.scanDecimalDigs()
@@ -186,10 +183,9 @@ class JsRegExpParser:
             return None
         return content
 
-
     def parseAtomEscape(self):
         ch = self.source[self.index]
-        if isDecimalDigit(ch) and ch!=0:
+        if isDecimalDigit(ch) and ch != 0:
             digs = self.scanDecimalDigs()
         elif ch in CHAR_CLASS_ESCAPE:
             self.index += 1
@@ -201,19 +197,14 @@ class JsRegExpParser:
         ch = self.source[self.index]
         if ch in CONTROL_ESCAPE_CHARS:
             return SpecialChar('\\' + ch)
-        if ch=='c':
+        if ch == 'c':
             'ok, fuck this shit.'
-
 
     def scanDecimalDigs(self):
         s = self.index
         while not self.isEOF() and isDecimalDigit(self.source[self.index]):
             self.index += 1
         return self.source[s:self.index]
-
-
-
-
 
 a = JsRegExpParser('a(?=x)', '')
 print(a.parsePattern())

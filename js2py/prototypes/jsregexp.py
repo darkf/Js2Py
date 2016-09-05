@@ -1,4 +1,3 @@
-
 class RegExpPrototype:
     def toString():
         flags = u''
@@ -9,7 +8,7 @@ class RegExpPrototype:
         if this.multiline:
             flags += u'm'
         v = this.value if this.value else '(?:)'
-        return u'/%s/'%v + flags
+        return u'/%s/' % v + flags
 
     def test(string):
         return Exec(this, string) is not this.null
@@ -17,11 +16,8 @@ class RegExpPrototype:
     def exec2(string):  # will be changed to exec in base.py. cant name it exec here
         return Exec(this, string)
 
-
-
-
 def Exec(this, string):
-    if this.Class!='RegExp':
+    if this.Class != 'RegExp':
         raise this.MakeError('TypeError', 'RegExp.prototype.exec is not generic!')
     string = string.to_string()
     length = len(string)
@@ -33,11 +29,10 @@ def Exec(this, string):
             return this.null
         matched = this.match(string.value, i)
         i += 1
-    start, end = matched.span()#[0]+i-1, matched.span()[1]+i-1
+    start, end = matched.span()  # [0]+i-1, matched.span()[1]+i-1
     if this.glob:
         this.put('lastIndex', this.Js(end))
-    arr = this.Js([this.Js(e) for e in [matched.group()]+list(matched.groups())])
+    arr = this.Js([this.Js(e) for e in [matched.group()] + list(matched.groups())])
     arr.put('index', this.Js(start))
     arr.put('input', string)
     return arr
-
