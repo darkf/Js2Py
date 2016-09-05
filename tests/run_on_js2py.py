@@ -1,36 +1,19 @@
-from __future__ import print_function
-
+import functools
+import multiprocessing
 import sys
+import itertools
 
 sys.path.insert(0, "..")
+
 import js2py
 from js2py.base import PyJsException, PyExceptionToJs
-import os, sys, re, traceback, threading, ctypes, time, six
-from distutils.version import LooseVersion
+import os, sys, re, traceback
 
 def load(path):
     with open(path, 'r') as f:
         return f.read()
 
-def terminate_thread(thread):
-    """Terminates a python thread from another thread.
-
-    :param thread: a threading.Thread instance
-    """
-    if not thread.isAlive():
-        return
-
-    exc = ctypes.py_object(SystemExit)
-    res = ctypes.pythonapi.PyThreadState_SetAsyncExc(
-            ctypes.c_long(thread.ident), exc)
-    if res == 0:
-        raise ValueError("nonexistent thread id")
-    elif res > 1:
-        # """if it returns a number greater than one, you're in trouble,
-        # and you should call it again with exc=NULL to revert the effect"""
-        ctypes.pythonapi.PyThreadState_SetAsyncExc(thread.ident, None)
-        raise SystemError("PyThreadState_SetAsyncExc failed")
-
+NUM_PROCESSES = 3
 TEST_TIMEOUT = 10
 INCLUDE_PATH = 'includes/'
 TEST_PATH = 'test_cases/'
@@ -47,7 +30,6 @@ class TestCase:
     CATEGORY_REQUIRES_SPLIT = {'flags', 'includes'}
 
     def __init__(self, path):
-
         self.path = path
         self.full_path = os.path.abspath(self.path)
         self.clear_name = '/'.join(self.full_path.split(os.sep)[-3 - ('prototype' in self.full_path):-1])
@@ -162,34 +144,22 @@ def all_tests(path):
     for dirpath, _, filenames in os.walk(path):
         yield from (os.path.join(dirpath, filename) for filename in filenames if filename.endswith(".js"))
 
+def run_test(num_tests, args):
+    i, filename = args
+    test = TestCase(filename)
+    if test.strict_only:
+        return
+    test.run()
+
+    print("[%d/%d]" % (i, num_tests), test.clear_name, test.es5id, test.label, test.reason,
+          '\nFile "%s", line 1' % test.full_path if test.label == 'CRASHED' else '')
+
 def test_all(path):
     files = list(all_tests(path))
     num_tests = len(files)
 
-    for i,filename in enumerate(files):
-        try:
-            test = TestCase(filename)
-            if test.strict_only:
-                continue
-
-            thread = threading.Thread(target=test.run)
-            timeout_time = time.time() + TEST_TIMEOUT
-            thread.start()
-            while thread.is_alive() and time.time() < timeout_time:
-                time.sleep(0.001)
-            if thread.is_alive():
-                terminate_thread(thread)
-                test.passed = False
-                test.full_error = 'TERMINATED'
-                test.label = 'TIMEOUT'
-                test.reason = '?'
-
-            print("[%d/%d]" % (i, num_tests), test.clear_name, test.es5id, test.label, test.reason,
-                  '\nFile "%s", line 1' % test.full_path if test.label == 'CRASHED' else '')
-        except:
-            print(traceback.format_exc())
-            print(filename)
-            input()
+    with multiprocessing.Pool(NUM_PROCESSES) as pool:
+        pool.map(functools.partial(run_test, num_tests), zip(itertools.count(0), files), chunksize=64)
 
 if __name__ == "__main__":
     test_all(TEST_PATH)
