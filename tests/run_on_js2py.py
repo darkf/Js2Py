@@ -1,4 +1,6 @@
 from __future__ import print_function
+import sys
+sys.path.insert(0, "..")
 import js2py
 from js2py.base import PyJsException, PyExceptionToJs
 import os, sys, re, traceback, threading, ctypes, time, six
